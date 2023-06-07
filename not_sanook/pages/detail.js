@@ -72,11 +72,11 @@ export default function Detail() {
           </Box>
         </Stack>
         <Image className={styles.detailImage} src={News1} alt="News image" />
-        <Typography>
+        <Typography className={styles.textD1}>
           การทางพิเศษแห่งประเทศไทยประกาศยกเว้นเก็บค่าผ่านทาง 3 สายทาง
           รวมทั้งสิ้น 60 ด่าน ในวันหยุดราชการวันที่ 3 มิถุนายน 2566 นี้
         </Typography>
-        <Typography>
+        <Typography className={styles.textD2}>
           การทางพิเศษแห่งประเทศไทย (กทพ.) ยกเว้นค่าผ่านทางของการทางพิเศษ 3
           สายทาง จำนวน 60 ด่าน ในวันเสาร์ที่ 3 มิถุนายน 2566 ตั้งแต่เวลา 00.01
           น. ถึง 24.00 น. จำนวน 1 วัน เนื่องในวันเฉลิมพระชนมพรรษาสมเด็จพระราชินี
@@ -100,8 +100,8 @@ export default function Detail() {
           </ListItem>
         </List>
         <Image className={styles.detailImage} src={News2} alt="News image" />
-        <Typography>
-          การยกเว้นค่าผ่านทางในวันหยุดราชการประจำปีตามประกาศสำนักนายกรัฐมนตรี
+        <Typography  component="span" className={styles.textD2}>
+        การยกเว้นค่าผ่านทางในวันหยุดราชการประจำปีตามประกาศสำนักนายกรัฐมนตรี
           เป็นไปตามที่ กทพ. บริษัท ทางด่วนและรถไฟฟ้ากรุงเทพ จำกัด (มหาชน) (BEM)
           และบริษัททางด่วน กรุงเทพเหนือจำกัด (NECL)
           ร่วมปฏิบัติตามเงื่อนไขสัญญาสัมปทานโครงการ ระบบทางด่วนขั้นที่ 2
@@ -110,7 +110,7 @@ export default function Detail() {
           ฉบับแก้ไขใหม่
           เพื่อเป็นการอำนวยความสะดวกในการเดินทางของประชาชนในวันหยุด
         </Typography>
-        <Typography>
+        <Typography className={styles.textD1}>
           ประชาชนผู้ใช้ทางสามารถสอบถามรายละเอียดได้ที่ EXAT Call Center โทร 1543
         </Typography>
         <Box>

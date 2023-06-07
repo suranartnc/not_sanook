@@ -25,7 +25,7 @@
   font-size: 1.2em;
 }
 
-.textDetailTopic{
+.textDetailTopic {
   font-size: 2.6rem;
   font-weight: 700;
   margin: 1rem 0;
@@ -48,4 +48,14 @@
   border-radius: 20px;
   color: white;
   padding: 0.3rem 0.7rem;
+}
+
+.textD1 {
+}
+
+.textD2 {
+}
+
+.tap {
+  tab-size: 2;
 }
