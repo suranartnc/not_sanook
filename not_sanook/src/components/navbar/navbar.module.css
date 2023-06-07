@@ -1,0 +1,39 @@
+.container {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-weight: bold;
+    font-size: 30px;
+    color: red;
+  }
+  
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .icon {
+    cursor: pointer;
+  }
+
+  .login {
+    padding: 5px;
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  
