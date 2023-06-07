@@ -1,91 +1,60 @@
 .container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
+  /* min-height: 100vh; */
+  margin: 0 5%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.boxLeft {
+  width: 65%;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.boxRight {
+  width: 30%;
 }
 
-.title {
-  margin: 0 0 1rem;
-  line-height: 1.15;
-  font-size: 3.6rem;
+.detailImage {
+  width: 100%;
+  object-fit: contain;
 }
 
-.title {
-  text-align: center;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-
-.description {
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.grid {
+.moreOption {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  max-width: 800px;
-  margin-top: 3rem;
+  color: #9e9e9e;
+  font-size: 1.2em;
 }
 
-.card {
-  margin: 1rem;
-  flex-basis: 45%;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+.divider{
+  width: 2px;
+  background-color: #9e9e9e;
+  height: 1.5rem;
+  margin: 0 0.5rem;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.textDetailTopic {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 1rem 0;
 }
 
-.card h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+.textMoreOption {
+  font-size: 1rem;
 }
 
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
+.customIcon {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: 0.5rem;
 }
 
-.logo {
-  height: 1em;
+.copyLink {
+  align-items: center;
+  margin-left: 0.5rem;
+  background-color: #fd0000;
+  border-radius: 20px;
+  color: white;
+  padding: 0.3rem 0.7rem;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
