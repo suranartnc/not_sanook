@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 async function getData() {
-  const res = await fetch('http://localhost:3003/contents/2e57f096-2a7c-44ae-b01c-84c612af1fae');
+  const res = await fetch('http://localhost:3003/contents/');
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
  
@@ -24,7 +24,7 @@ const Blog = async ({ params }) => {
     <div className={styles.mainContainer}>
       {data.map((item) => (
         <div className={styles.item} key={item.id}>
-        <Link href={`/blog/${item._id}`} className={styles.container} key={item.id}>
+        <Link href="/blog/testID" className={styles.container} key={item.id}>
           <div className={styles.imageContainer}>
             <Image
               src={item.image}
