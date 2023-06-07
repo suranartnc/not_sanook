@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 const About = () => {
   return (
-    <div className={styles.container}>ข่าว</div>
+    <div className={styles.container}>บันเทิง</div>
   )
 }
 
