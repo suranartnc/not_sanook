@@ -2,7 +2,7 @@ import Navbar from '@/components/navbar/Navbar';
 import './globals.css';
 import { Inter, SourceSansPro } from 'next/font/google';
 import Footer from '@/components/footer/Footer';
-import { ThemeProvider } from "../../context/ThememContext";
+// import { ThemeProvider } from "../../context/ThememContext";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,13 +15,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
+        {/* <ThemeProvider> */}
           <div className="container">
-            <Navbar />
+            {/* <Navbar /> */}
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </div>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
         </body>
     </html>
   );
