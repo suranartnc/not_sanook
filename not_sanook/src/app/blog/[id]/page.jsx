@@ -82,10 +82,10 @@ const Detail = () => {
                 style={{ width: "100%", height: "auto" }}
               />
               <p className={styles.textD}>{data.body}</p>
-              <RelateNews channel={data.channel} category={data.category}/>
+              <RelateNews channel={data.channel} category={data.category} id={data.id}/>
             </div>
             <div className={styles.boxRight}>
-              <MostViews category={data.category} />
+              <MostViews category={data.category} id={data.id} />
             </div>
           </div>
         </div>

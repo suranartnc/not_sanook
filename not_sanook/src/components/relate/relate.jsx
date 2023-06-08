@@ -5,7 +5,7 @@ import RightArrow from "../../../public/right_arrow_icon.png";
 
 import { useEffect, useState } from "react";
 
-const relateNews = ({ channel, category }) => {
+const relateNews = ({ channel, category, id }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const relateNews = ({ channel, category }) => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3003/contents/?channel=${channel}&category=${category}&_limit=3`
+        `http://localhost:3003/contents/?channel=${channel}&category=${category}&_limit=3Z&id_ne=${id}`
       );
       const jsonData = await response.json();
       setData(jsonData);

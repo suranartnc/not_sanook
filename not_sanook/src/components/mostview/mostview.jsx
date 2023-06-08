@@ -17,7 +17,7 @@ const MostViews = ({ category, id }) => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3003/contents/?category=${category}&_limit=3&_order=desc`
+        `http://localhost:3003/contents/?category=${category}&_limit=3&_order=desc&id_ne=${id}`
       );
       const jsonData = await response.json();
       setData(jsonData);
