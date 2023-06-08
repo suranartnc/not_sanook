@@ -1,77 +1,94 @@
 "use client";
 
-import React from 'react';
-import styles from './footer.module.css';
+import React from "react";
+import styles from "./footer.module.css";
 import Image from "next/image";
+import Sanook from "../../../public/sanook.png";
+import FB from "../../../public/facebook.png";
+import TW from "../../../public/twitter.png";
+import IG from "../../../public/instagram.png";
+import YT from "../../../public/youtube.png";
+import IN from "../../../public/linkedin.png";
+import LI from "../../../public/line.png";
 
 const Footer = () => {
-
   return (
     <div className={styles.container}>
-      <div> 
-        <h2>สงวนลิขสิทธิ์ © 2566 บริษัท เทนเซ็นต์ (ประเทศไทย) จำกัด</h2>
+      <div className={styles.boxLeft}>
+        <Image src={Sanook} width={120} height={17} alt="Sanook icon" />
+        <h4>สงวนลิขสิทธิ์ © 2566 บริษัท เทนเซ็นต์ (ประเทศไทย) จำกัด</h4>
+        <div className={styles.suggest}>
+          <p
+            onClick={() => {
+              console.log("About us");
+            }}
+          >
+            เกี่ยวกับเรา
+          </p>
+          <div className={styles.divider} />
+          <p
+            onClick={() => {
+              console.log("Privacy Policy");
+            }}
+          >
+            นโยบายความเป็นส่วนตัว
+          </p>
+          <div className={styles.divider} />
+          <p
+            onClick={() => {
+              console.log("Cookie Policy");
+            }}
+          >
+            นโยบายคุกกี้
+          </p>
+          <div className={styles.divider} />
+          <p
+            onClick={() => {
+              console.log("Inappropriate content");
+            }}
+          >
+            ร้องเรียนเนื้อหาไม่เหมาะสม
+          </p>
+        </div>
       </div>
-      <div className={styles.social}>
-        <Image src="/sanook.png" width={195} height={35} alt="Sanook"/>
-        <Image src="/1.png" width={35} height={35} className={styles.icon} alt="Facebook"/>
-        <Image src="/2.png" width={35} height={35} className={styles.icon} alt="Twitter"/>
-        <Image src="/3.png" width={35} height={35} className={styles.icon} alt="Instagram"/>
-        <Image src="/4.png" width={35} height={35} className={styles.icon} alt="Youtube"/>
-        <Image src="/5.png" width={35} height={35} className={styles.icon} alt="LinkedIn"/>
-        <Image src="/6.png" width={35} height={35} className={styles.icon} alt="Line"/>
+      <div className={styles.boxRight}>
+        <p
+          onClick={() => {
+            console.log("Give feedback, report problems");
+          }}
+        >
+          แนะนำติชม แจ้งปัญหาการใช้งาน
+        </p>
+        <p
+          onClick={() => {
+            console.log("Work with uss");
+          }}
+        >
+          ร่วมงานกับเรา
+        </p>
+        <div className={styles.contact}>
+          <div className={styles.social}>
+            <Image src={FB} className={styles.icon} alt="Facebook" />
+            <Image src={TW} className={styles.icon} alt="Twitter" />
+            <Image src={IG} className={styles.icon} alt="Instagram" />
+            <Image src={YT} className={styles.icon} alt="Youtube" />
+            <Image src={IN} className={styles.icon} alt="LinkedIn" />
+            <Image src={LI} className={styles.icon} alt="Line" />
+          </div>
+          <div class="searchBox">
+            <form noValidate action="" role="search">
+              <input
+              className={styles.input}
+              type="text"
+                placeholder="Email address"
+              />
+              <button className={styles.button} type="submit">รับข่าวสาร</button>
+            </form>
+          </div>
+        </div>
       </div>
-      <div className={styles.social}>
-      <button
-       className={styles.login}
-       onClick={() => {
-        console.log("Log in");
-       }}
-       >
-        แนะนำติชม แจ้งปัญหาการใช้งาน
-      </button>
-      <button
-       className={styles.login}
-       onClick={() => {
-        console.log("Log in");
-       }}
-       >
-        ร่วมงานกับเรา
-      </button>
-      <button
-       className={styles.login}
-       onClick={() => {
-        console.log("Log in");
-       }}
-       >
-        เกี่ยวกับเรา
-       </button>
-       <button
-       className={styles.login}
-       onClick={() => {
-        console.log("Log in");
-       }}
-       >
-        นโยบายความเป็นส่วนตัว
-       </button>
-       <button
-       className={styles.login}
-       onClick={() => {
-        console.log("Log in");
-       }}
-       >
-        นโยบายคุกกี้
-       </button>
-       <button
-       className={styles.login}
-       onClick={() => {
-        console.log("Log in");
-       }}
-       >
-        ร้องเรียนเนื้อหาไม่เหมาะสม
-       </button>
-       </div>
     </div>
   );
 };
 
-export default Footer
+export default Footer;
