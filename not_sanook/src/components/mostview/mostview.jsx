@@ -1,9 +1,6 @@
 // import { Box, div, Typography } from "@mui/material";
 import Image from "next/image";
 import styles from "./mostview.module.css";
-import mvImage1 from "../../../public/mv_image_1.png";
-import mvImage2 from "../../../public/mv_image_2.png";
-import mvImage3 from "../../../public/mv_image_3.png";
 
 import { useEffect, useState } from "react";
 
