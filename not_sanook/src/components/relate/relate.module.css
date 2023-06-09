@@ -1,0 +1,33 @@
+.relateTopic {
+  align-items: center;
+  display: flex;
+  font-size: 1rem;
+}
+
+.customIcon {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: 0.5rem;
+}
+
+.divider {
+  width: 100%;
+  background-color: #fd0000;
+  height: 0.2rem;
+  margin: 1rem 0;
+}
+
+.grid {
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.relateCard {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  width: 30%;
+}
