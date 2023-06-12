@@ -18,7 +18,7 @@ const Pagination = ({ items, pageSize, currentPage, onPageChange }) => {
             }
           >
             <a className={styles.pageLink} onClick={() => onPageChange(page)}>
-              {page}
+              {page} 
             </a>
           </li>
         ))}

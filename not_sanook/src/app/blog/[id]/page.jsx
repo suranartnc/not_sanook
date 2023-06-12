@@ -6,33 +6,20 @@ import FBIcon from "../.././../../public/fb_icon.png";
 import TWIcon from "../.././../../public/tw_icon.png";
 import ClockIcon from "../.././../../public/clock_icon.png";
 import LinkIcon from "../.././../../public/link_icon.png";
-import MostViews from "../../../components/mostview/mostview";
-import RelateNews from "../../../components/relate/relate";
+import Mostview from "@/components/mostview/Mostview";
+import Relate from "@/components/relate/Relate";
 
-import { useEffect, useState } from "react";
+async function getData(id) {
+  const response = await fetch(`http://localhost:3003/contents/${id}`);
+  return response.json();
+}
 
-const Detail = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3003/contents/2e57f096-2a7c-44ae-b01c-84c612af1fae"
-        );
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error("Error fetching product:", error);
-      }
-    };
-    fetchData();
-  }, []);
+const Detail = async ({params}) => {
+  const data = await getData(params.id);
 
   return (
     <div>
       {data ? (
-        <div>
           <div className={styles.container}>
             <div className={styles.boxLeft}>
               <h1 className={styles.textDetailTopic}>{data.title}</h1>
@@ -82,13 +69,16 @@ const Detail = () => {
                 style={{ width: "100%", height: "auto" }}
               />
               <p className={styles.textD}>{data.body}</p>
-              <RelateNews channel={data.channel} category={data.category} id={data.id}/>
+              <Relate
+                channel={data.channel}
+                category={data.category}
+                id={data.id}
+              />
             </div>
             <div className={styles.boxRight}>
-              <MostViews category={data.category} id={data.id} />
+              <Mostview category={data.category} id={data.id} />
             </div>
           </div>
-        </div>
       ) : (
         <p>Loading...</p>
       )}

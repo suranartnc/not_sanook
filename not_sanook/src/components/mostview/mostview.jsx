@@ -1,27 +1,18 @@
-// import { Box, div, Typography } from "@mui/material";
 import Image from "next/image";
 import styles from "./mostview.module.css";
 
-import { useEffect, useState } from "react";
+async function getData(category, channel, id) {
+  let url = "http://localhost:3003/contents/?_limit=3&_order=desc&";
+  if (category) url += `category=${category}&`;
+  if (channel) url += `channel=${channel}&`;
+  if (id) url += `id_ne=${id}`;
 
-const MostViews = ({ category, id }) => {
-  const [data, setData] = useState([]);
+  const response = await fetch(url);
+  return response.json();
+}
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3003/contents/?category=${category}&_limit=3&_order=desc&id_ne=${id}`
-      );
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+const Mostview = async ({ category, channel, id }) => {
+  const data = await getData(category, channel, id);
 
   return (
     <div className={styles.mostview}>
@@ -53,4 +44,4 @@ const MostViews = ({ category, id }) => {
   );
 };
 
-export default MostViews;
+export default Mostview;

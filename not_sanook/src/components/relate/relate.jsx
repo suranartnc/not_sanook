@@ -5,24 +5,18 @@ import RightArrow from "../../../public/right_arrow_icon.png";
 
 import { useEffect, useState } from "react";
 
-const relateNews = ({ channel, category, id }) => {
-  const [data, setData] = useState([]);
+async function getData(category, channel, id) {
+  let url = "http://localhost:3003/contents/?_limit=3&";
+  if (category) url += `category=${category}&`;
+  if (channel) url += `channel=${channel}&`;
+  if (id) url += `id_ne=${id}`;
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const response = await fetch(url);
+  return response.json();
+}
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3003/contents/?channel=${channel}&category=${category}&_limit=3Z&id_ne=${id}`
-      );
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+const Relate = async ({ channel, category, id }) => {
+  const data = await getData(category, channel, id);
 
   return (
     <div>
@@ -52,4 +46,4 @@ const relateNews = ({ channel, category, id }) => {
   );
 };
 
-export default relateNews;
+export default Relate;
