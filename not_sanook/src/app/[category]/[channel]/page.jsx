@@ -62,7 +62,7 @@ const Channel = async ({params}) => {
         <div className={styles.boxLeft}>
           <div className={styles.channel}>
             <h3 className={styles.textCategory}>{params.channel}</h3>
-            <Link href={`portfolio/archive`}>
+            <Link href={`/archive`}>
               <p className={styles.textChannel}>all {params.channel}</p>
             </Link>
           </div>
