@@ -99,7 +99,7 @@ const Category = async ({ params }) => {
                 <p className={styles.textChannel}>{item.channel}</p>
               </Link>
             ))}
-            <Link href={`category/archive`}>
+            <Link href={`/${category}/archive`}>
               <p className={styles.textChannel}>all {category}</p>
             </Link>
           </div>
