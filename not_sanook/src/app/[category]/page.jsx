@@ -1,44 +1,54 @@
 "use client";
-import MostViews from "@/components/mostview/mostview";
-import Pagination from "../../components/pagination/pagination";
+import Mostview from "@/components/mostview/Mostview";
+import Pagination from "../../components/pagination/Pagination";
 import styles from "./page.module.css";
 import Clock from "../../../public/clock_icon.png";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-const Category = ({ params }) => {
-  const [firstNews, setFirstNews] = useState([]);
-  const [otherNews, setOtherNews] = useState([]);
-  const [data, setData] = useState([]);
-  
+async function getData(category) {
+  const response = await fetch(
+    `http://localhost:3003/contents/?category=${category}`
+  );
+  return response.json();
+}
 
-  const category = "news";
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3003/contents/?category=${category}`
-      );
-      const data = await response.json();
-      // const sortDate = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-      const random = data.sort(() => Math.random() - 0.5);
-
-      const first = random[0];
-      const other = random.slice(1, 5);
-
-      setFirstNews(first);
-      setOtherNews(other);
-      setData(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+function getChannel(data) {
+  const usedChannel = [];
+  const modifiedData = [];
+  const getChannelURL = (channel) => {
+    return `portfolio/${channel}`;
   };
 
+  data.forEach((item, index) => {
+    const channel = item.channel;
+
+    if (!usedChannel.includes(channel)) {
+      modifiedData.push({
+        id: index,
+        channel: channel,
+        channelURL: getChannelURL(channel),
+      });
+      usedChannel.push(channel);
+      index++;
+    }
+  });
+  return modifiedData;
+}
+
+const Category = async ({ params }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const category = params.category;
+  const data = await getData(category);
+  const channel = getChannel(data);
+
+  const random = data.sort(() => Math.random() - 0.5);
+  const first = random[0];
+  const other = random.slice(1, 5);
+
   const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
   const calculateElapsedTime = (time) => {
     const currentDateTime = new Date();
     const newsDate = new Date(time);
@@ -59,7 +69,6 @@ const Category = ({ params }) => {
     }
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
 
   const onPageChange = (page) => {
@@ -77,13 +86,29 @@ const Category = ({ params }) => {
     <div>
       <div className={styles.container}>
         <div className={styles.boxLeft}>
-          <h3 className={styles.textCategory}>{category}</h3>
+          <div className={styles.category}>
+            <p className={styles.textCategory}>{category}</p>
+            {channel.map((item) => (
+              <Link
+                key={item.channel}
+                href={{
+                  pathname: `/[category]/[channel]`,
+                }}
+                as={`/${category}/${item.channel}`}
+              >
+                <p className={styles.textChannel}>{item.channel}</p>
+              </Link>
+            ))}
+            <Link href={`category/archive`}>
+              <p className={styles.textChannel}>all {category}</p>
+            </Link>
+          </div>
           <div className={styles.highlight}>
-            {firstNews && (
+            {first && (
               <div className={styles.topHighlight}>
                 <Image
                   alt="Highlight News image"
-                  src={firstNews.image}
+                  src={first.image}
                   width={0}
                   height={0}
                   sizes="100vw"
@@ -93,11 +118,11 @@ const Category = ({ params }) => {
                     borderRadius: "10px",
                   }}
                 />
-                <h4>{firstNews.title}</h4>
+                <h4>{first.title}</h4>
               </div>
             )}
             <div className={styles.moreHighlight}>
-              {otherNews.map((item) => (
+              {other.map((item) => (
                 <div key={item.id} className={styles.moreNews}>
                   <Image
                     alt="Highlight News image"
@@ -155,7 +180,7 @@ const Category = ({ params }) => {
           </div>
         </div>
         <div className={styles.boxRight}>
-          <MostViews category={category} />
+          <Mostview category={category}/>
         </div>
       </div>
     </div>
