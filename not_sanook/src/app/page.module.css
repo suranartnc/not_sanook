@@ -1,345 +1,165 @@
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
-
-
-  .row {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-
-  .category {
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    flex-direction: row;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .arrow {
-    width: 100px;
-    flex-direction: row;
-    position: absolute;
-    left: 225px;
-    top: 4px;
-    cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
-
-.down {
-  width: 100px;
-  flex-direction: row;
-  position: absolute;
-  left: 140px;
-  top: 13px;
-  cursor: pointer;
+.title {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
 }
 
-.search {
-  width: 50px;
-  height: 45px;
-  flex-direction: row;
-  position: absolute;
-  left: 122px;
-  top: 0px;
-  bottom: 0px;
-  cursor: pointer;
-  background-color:  rgb(231, 30, 30);
+.category {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 
-.pic {
-  width: 50px;
-  height: 50px;
-  flex-direction: row;
-  position: absolute;
-  left: 15px;
-  top: 15px;
-  cursor: pointer;
-}
-
-
-.separator {
+.lottoAndHoro {
   width: 100%;
-  height: 3px;
-  background-color: #f61b1b;
-  margin-bottom: 20px;
-}
-
-
-.separate {
-  width: 80%;
-  height: 1px;
-  background-color: #d0caca;
-  margin-bottom: 20px;
-  margin-left: 35px;
-  margin-top: 130px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
 }
 
 .boxlot {
-  border: 3px solid rgb(231, 30, 30);
-  width: 400px;
-  height: 470px;
-  margin: 40px;
-  position: relative;
+  border-top: 5px solid #fd0000;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+  width: 35%;
+  padding: 2rem 1rem;
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 0.8rem;
+  text-align: center;
 }
-
-.date {
-  border: 3px solid rgb(231, 30, 30);
-  width: 175px;
-  height: 50px;
-  margin: 10px;
-  position: absolute;
-}
-
-.check {
-  border: 3px solid rgb(231, 30, 30);
-  width: 175px;
-  height: 50px;
-  position: absolute;
-  margin-left: 200px;
-  margin-top: 10px;
-}
-
-.boxhoro {
-  border: 3px solid rgb(213, 78, 240);
-  width: 700px;
-  height: 470px;
-  margin-left: 20px;
-  margin-top: 40px;
-}
-
 
 .header {
-  font-size: 22px;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: relative;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 20px;
 }
 
 .desc {
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: column;
-  position: relative;
-  cursor: pointer;
-  text-align: center;
 }
-
-.texthoro {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  flex-direction: column;
-  position: relative;
-  cursor: pointer;
-  justify-content: center;
-}
-
-.bot {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: relative;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 10px;
-}
-
 
 .first {
   font-size: 15px;
   font-weight: normal;
-  margin-bottom: 10px;
-  flex-direction: row;
-  /* position: absolute; */
-  cursor: pointer;
-  text-align: center;
+}
+
+.numFirst {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fd0000;
+}
+
+.otherPriceLot {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.otherPrice {
+  font-size: 0.8rem;
+}
+
+.num1 {
+  font-size: 1.2rem;
+}
+
+.num2 {
+  font-size: 2.5rem;
+}
+
+.addition {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.checkNum {
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+}
+
+.inputDate {
+  border: 3px solid #d9d9d9;
+  width: 48%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .day {
-  font-size: 12px;
-  font-weight: normal;
-  margin-top: 14px;
-  flex-direction: row;
-  /* position: absolute; */
-  cursor: pointer;
-  text-align: center;
-  margin-right: 10px;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
 }
 
-
-.num {
-  font-size: 12px;
-  font-weight: normal;
-  margin-top: 14px;
-  flex-direction: row;
-  /* position: absolute; */
-  cursor: pointer;
-  text-align: center;
-  margin-right: 45px;
-}
-
-
-.nofirst {
-  font-size: 50px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  /* position: absolute; */
-  cursor: pointer;
-  text-align: center;
-  color: #f11111;
-}
-
-.front {
-  font-size: 15px;
-  font-weight: normal;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: left;
-  margin-left: 20px;
-}
-
-.nofront {
-  font-size: 33px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: left;
-  margin-left: 28px;
-  margin-top: 20px;
-}
-
-
-.numfront {
-  font-size: 33px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: left;
-  margin-top: 60px;
-  margin-left: 30px;
-}
-
-.back {
-  font-size: 15px;
-  font-weight: normal;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: center;
-  margin-left: 150px;
-}
-
-.noback {
-  font-size: 33px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 20px;
-  margin-left: 160px;
-}
-
-.numback {
-  font-size: 33px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: left;
-  margin-top: 60px;
-  margin-left: 160px;
-}
-
-.sec {
-  font-size: 15px;
-  font-weight: normal;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: center;
-  margin-left: 280px;
-}
-
-.nosec {
-  font-size: 50px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 30px;
-  margin-left: 290px;
-}
-
-
-
-.column {
-  flex: 1;
+.inputNum {
+  width: 48%;
+  font-size: 0.8rem;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  margin-top: 20px;
-  justify-content: space-around;
-  cursor: pointer;
-  row-gap: 50px;
-}
-
-.columntext {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  margin-top: 20px;
-  /* margin-bottom: 10px; */
-  /* margin-right: 60px; */
-  justify-content: space-around;
-  cursor: pointer;
-  row-gap: 50px;
-}
-
-.rowpic {
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
-}
-
-
-
-.containerlot {
-  display: flex;
-  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
-.columnlot {
-  text-align: center;
-  margin: 10px 0;
-  flex-direction: column;
-  position: relative;
+.inputBox {
+  border-left: 3px solid #d9d9d9;
+  border-top: 3px solid #d9d9d9;
+  border-bottom: 3px solid #d9d9d9;
+  border-right: none;
+  width: 70%;
+  height: 100%;
+  padding-left: 0.5rem;
 }
 
+.button {
+  height: 100%;
+  width: 30%;
+  color: white;
+  background-color: #fd0000;
+  border: none;
+}
+
+.boxhoro {
+  border-top: 5px solid #9d00fd;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  text-align: center;
+  align-items: center;
+  width: 60%;
+  height: 100%;
+}
+
+.topHoro {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 40% 40% 40%;
+  grid-row-gap: 1rem;
+  justify-content: space-between;
+}
+
+.typeHoro {
+  text-align: center;
+  align-items: center;
+  display: flex;
+}
+
+.textHoro {
+  margin-left: 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
