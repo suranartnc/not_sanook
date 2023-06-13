@@ -3,8 +3,6 @@ import Image from "next/image";
 import LineIcon from "./../.././../../public/line_icon.png";
 import FBIcon from "./../.././../../public/fb_icon.png";
 import TWIcon from "./../.././../../public/tw_icon.png";
-import News1 from "./../.././../../public/detail_image_1.png";
-import News2 from "./../.././../../public/detail_image_2.png";
 import relateImage1 from "./../.././../../public/Related_image_1.png";
 import relateImage2 from "./../.././../../public/Related_image_2.png";
 import relateImage3 from "./../.././../../public/Related_image_3.png";

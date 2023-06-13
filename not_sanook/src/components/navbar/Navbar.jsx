@@ -10,7 +10,7 @@ const links = [
     {
       id: 1,
       title: "ข่าว",
-      url: "/",
+      url: "/dashboard",
     },
     {
       id: 2,
@@ -34,8 +34,8 @@ const links = [
     },
     {
       id: 6,
-      title: "Dashboard",
-      url: "/dashboard",
+      title: "",
+      url: "/",
     },
   ];
 
