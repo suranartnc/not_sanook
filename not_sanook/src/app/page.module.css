@@ -1,71 +1,345 @@
 .container {
     display: flex;
-    align-items: center;
-    gap: 100px;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
-  
-  .item {
-    flex: 1;
+
+
+  .row {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .boxLeft {
-    width: 65%;
-  }
-  
-  .title {
-    font-size: 32px;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-  }
-
-  .most {
-    font-size: 32px;
-    background-color: white;
-    color: black;
-    margin: auto;
     align-items: center;
-    flex: 1;
-    display: flex;
-  }
-  
-  .img {
-    width: 100%;
-    height: 300px;
-    object-fit: contain;
-    /* animation: move 3s infinite ease alternate; */
+    position: relative;
   }
 
-  .imgmost {
-    cursor: pointer;
-    object-fit: contain;
-  }
 
   .category {
+    font-size: 25px;
     font-weight: bold;
-    font-size: 30px;
-    color: black;
-    cursor: pointer
-  }
-  
-  @keyframes move {
-    from {
-      transform: translateY(-10px);
-    }
-    to {
-      transform: translateY(10px);
-    }
-  }
-  
-  .desc {
-    font-weight: bold;
-    font-size: 20px;
-    color: black;
+    margin-bottom: 10px;
+    flex-direction: row;
+    position: relative;
     cursor: pointer;
   }
-  
+
+  .arrow {
+    width: 100px;
+    flex-direction: row;
+    position: absolute;
+    left: 225px;
+    top: 4px;
+    cursor: pointer;
+}
+
+
+.down {
+  width: 100px;
+  flex-direction: row;
+  position: absolute;
+  left: 140px;
+  top: 13px;
+  cursor: pointer;
+}
+
+.search {
+  width: 50px;
+  height: 45px;
+  flex-direction: row;
+  position: absolute;
+  left: 122px;
+  top: 0px;
+  bottom: 0px;
+  cursor: pointer;
+  background-color:  rgb(231, 30, 30);
+}
+
+.pic {
+  width: 50px;
+  height: 50px;
+  flex-direction: row;
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  cursor: pointer;
+}
+
+
+.separator {
+  width: 100%;
+  height: 3px;
+  background-color: #f61b1b;
+  margin-bottom: 20px;
+}
+
+
+.separate {
+  width: 80%;
+  height: 1px;
+  background-color: #d0caca;
+  margin-bottom: 20px;
+  margin-left: 35px;
+  margin-top: 130px;
+}
+
+.boxlot {
+  border: 3px solid rgb(231, 30, 30);
+  width: 400px;
+  height: 470px;
+  margin: 40px;
+  position: relative;
+}
+
+.date {
+  border: 3px solid rgb(231, 30, 30);
+  width: 175px;
+  height: 50px;
+  margin: 10px;
+  position: absolute;
+}
+
+.check {
+  border: 3px solid rgb(231, 30, 30);
+  width: 175px;
+  height: 50px;
+  position: absolute;
+  margin-left: 200px;
+  margin-top: 10px;
+}
+
+.boxhoro {
+  border: 3px solid rgb(213, 78, 240);
+  width: 700px;
+  height: 470px;
+  margin-left: 20px;
+  margin-top: 40px;
+}
+
+
+.header {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.desc {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+}
+
+.texthoro {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.bot {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+.first {
+  font-size: 15px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  flex-direction: row;
+  /* position: absolute; */
+  cursor: pointer;
+  text-align: center;
+}
+
+.day {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 14px;
+  flex-direction: row;
+  /* position: absolute; */
+  cursor: pointer;
+  text-align: center;
+  margin-right: 10px;
+}
+
+
+.num {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 14px;
+  flex-direction: row;
+  /* position: absolute; */
+  cursor: pointer;
+  text-align: center;
+  margin-right: 45px;
+}
+
+
+.nofirst {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  /* position: absolute; */
+  cursor: pointer;
+  text-align: center;
+  color: #f11111;
+}
+
+.front {
+  font-size: 15px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.nofront {
+  font-size: 33px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: left;
+  margin-left: 28px;
+  margin-top: 20px;
+}
+
+
+.numfront {
+  font-size: 33px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: left;
+  margin-top: 60px;
+  margin-left: 30px;
+}
+
+.back {
+  font-size: 15px;
+  font-weight: normal;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 150px;
+}
+
+.noback {
+  font-size: 33px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 160px;
+}
+
+.numback {
+  font-size: 33px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: left;
+  margin-top: 60px;
+  margin-left: 160px;
+}
+
+.sec {
+  font-size: 15px;
+  font-weight: normal;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 280px;
+}
+
+.nosec {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-direction: row;
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 30px;
+  margin-left: 290px;
+}
+
+
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin-top: 20px;
+  justify-content: space-around;
+  cursor: pointer;
+  row-gap: 50px;
+}
+
+.columntext {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-top: 20px;
+  /* margin-bottom: 10px; */
+  /* margin-right: 60px; */
+  justify-content: space-around;
+  cursor: pointer;
+  row-gap: 50px;
+}
+
+.rowpic {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+
+
+.containerlot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.columnlot {
+  text-align: center;
+  margin: 10px 0;
+  flex-direction: column;
+  position: relative;
+}
+
