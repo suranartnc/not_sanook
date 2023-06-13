@@ -3,7 +3,7 @@
   padding: 0;
   margin: 0;
 }
-
+ 
 html,
 body {
   max-width: 100vw;
@@ -17,11 +17,7 @@ a {
 
 
 .container {
-  max-width: 1366px;
+  max-width: 100Vw;
   min-height: 100vh;
-  margin: 0 auto;
-  padding: 0 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  margin: 0 7rem;
 }

@@ -1,39 +1,125 @@
 .container {
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo {
-    font-weight: bold;
-    font-size: 30px;
-    color: red;
-  }
-  
-  .links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
+  border-bottom: 0.2rem solid #fd0000;
+  margin-bottom: 1rem;
+}
+.nav1 {
+  padding: 0 1rem;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  display: flex;
+}
 
-  .social {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .icon {
-    cursor: pointer;
-  }
+.nav2 {
+  padding: 0 0.5rem 0.2rem;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.5rem;
+  display: flex;
+}
 
-  .login {
-    padding: 5px;
-    border: none;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    border-radius: 3px;
-  }
+.navLeft {
+  align-items: center;
+  display: flex;
+  font-size: 0.9rem;
+}
 
-  
+.navMid {
+  position: relative;
+  align-items: center;
+}
+
+.logo {
+  margin-right: 0.5rem;
+  width: 252;
+  height: 40;
+}
+
+.input {
+  height: 2.3rem;
+  width: 20rem;
+  padding-left: 1rem;
+  background: #f5f5f5;
+  border: 2px solid #d9d9d9;
+  border-radius: 25px;
+}
+
+.input::placeholder {
+  color: #6d6d6d;
+}
+
+.inputIcon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  margin-right: 1rem;
+}
+
+.navRight {
+  align-items: center;
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.divider {
+  width: 0px;
+  border-left: 2px solid black;
+  height: 1rem;
+  margin: 0 0.4rem;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.category {
+  padding: 1.2rem;
+  background-color: none;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+}
+
+.contents {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.channel {
+  color: black;
+  padding: 1rem;
+  text-decoration: none;
+  display: block;
+}
+
+.channel:hover {
+  color: #fd0000;
+}
+
+.dropdown:hover .contents {
+  display: block;
+}
+
+.dropdown:hover .category {
+  color: #fd0000;
+}
+
+.feature {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 2rem;
+}
+
+.app {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 0;
+  justify-items: center;
+}
