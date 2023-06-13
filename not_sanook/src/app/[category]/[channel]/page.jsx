@@ -14,7 +14,7 @@ async function getData(category, channel) {
   return response.json();
 }
 
-const Channel = async ({params}) => {
+const Channel = async ({ params }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const data = await getData(params.category, params.channel);
 
@@ -68,7 +68,14 @@ const Channel = async ({params}) => {
           </div>
           <div className={styles.highlight}>
             {first && (
-              <div className={styles.topHighlight}>
+              <Link
+                className={styles.topHighlight}
+                key={first.id}
+                href={{
+                  pathname: `/blog/[id]`,
+                }}
+                as={`/blog/${first.id}`}
+              >
                 <Image
                   alt="Highlight News image"
                   src={first.image}
@@ -82,11 +89,18 @@ const Channel = async ({params}) => {
                   }}
                 />
                 <h4>{first.title}</h4>
-              </div>
+              </Link>
             )}
             <div className={styles.moreHighlight}>
               {other.map((item) => (
-                <div key={item.id} className={styles.moreNews}>
+                <Link
+                  className={styles.moreNews}
+                  key={item.id}
+                  href={{
+                    pathname: `/blog/[id]`,
+                  }}
+                  as={`/blog/${item.id}`}
+                >
                   <Image
                     alt="Highlight News image"
                     src={item.image}
@@ -100,14 +114,21 @@ const Channel = async ({params}) => {
                     }}
                   />
                   <h4>{item.title}</h4>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
           <h3>Latest News</h3>
           <div className={styles.latest}>
             {paginatedPosts.map((item) => (
-              <div key={item.id} className={styles.latestCard}>
+              <Link
+                className={styles.latestCard}
+                key={item.id}
+                href={{
+                  pathname: `/blog/[id]`,
+                }}
+                as={`/blog/${item.id}`}
+              >
                 <Image
                   alt="Latest News image"
                   src={item.image}
@@ -132,7 +153,7 @@ const Channel = async ({params}) => {
                     <p>{calculateElapsedTime(item.date)}</p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
             <Pagination
               items={latest.length} // 100

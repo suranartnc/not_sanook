@@ -105,7 +105,14 @@ const Category = async ({ params }) => {
           </div>
           <div className={styles.highlight}>
             {first && (
-              <div className={styles.topHighlight}>
+              <Link
+                className={styles.topHighlight}
+                key={first.id}
+                href={{
+                  pathname: `/blog/[id]`,
+                }}
+                as={`/blog/${first.id}`}
+              >
                 <Image
                   alt="Highlight News image"
                   src={first.image}
@@ -119,11 +126,18 @@ const Category = async ({ params }) => {
                   }}
                 />
                 <h4>{first.title}</h4>
-              </div>
+              </Link>
             )}
             <div className={styles.moreHighlight}>
               {other.map((item) => (
-                <div key={item.id} className={styles.moreNews}>
+                <Link
+                  className={styles.moreNews}
+                  key={item.id}
+                  href={{
+                    pathname: `/blog/[id]`,
+                  }}
+                  as={`/blog/${item.id}`}
+                >
                   <Image
                     alt="Highlight News image"
                     src={item.image}
@@ -137,14 +151,21 @@ const Category = async ({ params }) => {
                     }}
                   />
                   <h4>{item.title}</h4>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
           <h3>Latest News</h3>
           <div className={styles.latest}>
             {paginatedPosts.map((item) => (
-              <div key={item.id} className={styles.latestCard}>
+              <Link
+                className={styles.latestCard}
+                key={item.id}
+                href={{
+                  pathname: `/blog/[id]`,
+                }}
+                as={`/blog/${item.id}`}
+              >
                 <Image
                   alt="Latest News image"
                   src={item.image}
@@ -169,7 +190,7 @@ const Category = async ({ params }) => {
                     <p>{calculateElapsedTime(item.date)}</p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
             <Pagination
               items={latest.length} // 100
@@ -180,7 +201,7 @@ const Category = async ({ params }) => {
           </div>
         </div>
         <div className={styles.boxRight}>
-          <Mostview category={category}/>
+          <Mostview category={category} />
         </div>
       </div>
     </div>
