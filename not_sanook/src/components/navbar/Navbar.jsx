@@ -1,13 +1,10 @@
 "use client";
-
 import Link from "next/link";
 import React from "react";
 import styles from "./navbar.module.css";
 import Image from "next/image";
 import Sanook from "../../../public/sanook.png";
 import Search from "../../../public/search.png";
-import { useEffect, useState } from "react";
-//import { signIn, useSession } from "next-auth/react";
 
 async function getData() {
   const response = await fetch(`http://localhost:3003/contents/`);
@@ -61,17 +58,23 @@ function getCategoryAndChannel(data) {
   return modifiedData;
 }
 
-const Navbar = async ({}) => {
+export default async function Navbar() {
   const data = await getData();
   const useData = getCategoryAndChannel(data);
-  
+
   const currentDate = new Date().toLocaleDateString();
 
   return (
     <div className={styles.container}>
       <div className={styles.nav1}>
         <div className={styles.navLeft}>
-          <Link href="/">
+          <Link
+            href={{
+              pathname: `/`,
+            }}
+            as={`/`}
+            key={"sanook"}
+          >
             <Image src={Sanook} className={styles.logo} alt="Sanook icon" />
           </Link>
           <p className={styles.most}>{currentDate}</p>
@@ -87,21 +90,9 @@ const Navbar = async ({}) => {
           />
         </div>
         <div className={styles.navRight}>
-          <h4
-            onClick={() => {
-              console.log("Log in");
-            }}
-          >
-            Login
-          </h4>
+          <h4>Login</h4>
           <div className={styles.divider} />
-          <h4
-            onClick={() => {
-              console.log("Register");
-            }}
-          >
-            Register
-          </h4>
+          <h4>Register</h4>
         </div>
       </div>
       <div className={styles.nav2}>
@@ -110,14 +101,23 @@ const Navbar = async ({}) => {
             <div className={styles.dropdown}>
               <Link
                 key={category.id}
-                href={`/${category.category}`}
+                href={{
+                  pathname: `/[category]`,
+                }}
+                as={`/${category.category}`}
                 className={styles.container}
               >
                 <h4 className={styles.category}>{category.category}</h4>
               </Link>
               <div className={styles.contents}>
                 {category.channels.map((channel) => (
-                  <Link key={channel.id} href={channel.url}>
+                  <Link
+                    key={channel.id}
+                    href={{
+                      pathname: `/[category]/[channel]`,
+                    }}
+                    as={channel.url}
+                  >
                     <h4 className={styles.channel}>{channel.name}</h4>
                   </Link>
                 ))}
@@ -152,6 +152,4 @@ const Navbar = async ({}) => {
       </div>
     </div>
   );
-};
-
-export default Navbar;
+}

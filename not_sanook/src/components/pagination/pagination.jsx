@@ -1,11 +1,16 @@
 import styles from "./pagination.module.css";
+import React from "react";
 
-const Pagination = ({ items, pageSize, currentPage, onPageChange }) => {
+export default async function Pagination({
+  items,
+  pageSize,
+  currentPage,
+  onPageChange,
+}) {
   const pagesCount = Math.ceil(items / pageSize); // 100/10
 
   if (pagesCount === 1) return null;
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
-  console.log(pages);
 
   return (
     <div>
@@ -17,14 +22,18 @@ const Pagination = ({ items, pageSize, currentPage, onPageChange }) => {
               page === currentPage ? styles.pageItemActive : styles.pageItem
             }
           >
-            <a className={styles.pageLink} onClick={() => onPageChange(page)}>
-              {page} 
+            <a
+              className={styles.pageLink}
+              onClick={() => {
+                onPageChange(page)
+                // window.alert(page);
+              }}
+            >
+              {page}
             </a>
           </li>
         ))}
       </ul>
     </div>
   );
-};
-
-export default Pagination;
+}

@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
@@ -11,7 +10,7 @@ import YT from "../../../public/youtube.png";
 import IN from "../../../public/linkedin.png";
 import LI from "../../../public/line.png";
 
-const Footer = () => {
+export default async function Footer() {
   return (
     <div className={styles.container}>
       <div className={styles.boxLeft}>
@@ -75,20 +74,20 @@ const Footer = () => {
             <Image src={IN} className={styles.icon} alt="LinkedIn" />
             <Image src={LI} className={styles.icon} alt="Line" />
           </div>
-          <div class="searchBox">
+          <div className={styles.searchBox}>
             <form noValidate action="" role="search">
               <input
-              className={styles.input}
-              type="text"
+                className={styles.input}
+                type="text"
                 placeholder="Email address"
               />
-              <button className={styles.button} type="submit">รับข่าวสาร</button>
+              <button className={styles.button} type="submit">
+                รับข่าวสาร
+              </button>
             </form>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default Footer;
+}

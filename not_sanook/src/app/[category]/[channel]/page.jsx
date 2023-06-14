@@ -3,7 +3,7 @@ import Mostview from "@/components/mostview/Mostview";
 import Pagination from "@/components/pagination/Pagination";
 import styles from "./page.module.css";
 import Clock from "../../../../public/clock_icon.png";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ async function getData(category, channel) {
   return response.json();
 }
 
-const Channel = async ({params}) => {
+export default async function Channel({ params }) {
   const [currentPage, setCurrentPage] = useState(1);
   const data = await getData(params.category, params.channel);
 
@@ -62,13 +62,26 @@ const Channel = async ({params}) => {
         <div className={styles.boxLeft}>
           <div className={styles.channel}>
             <h3 className={styles.textCategory}>{params.channel}</h3>
-            <Link href={`/archive`}>
+            <Link
+              href={{
+                pathname: `/[category]/archive/[channel]`,
+              }}
+              as={`${params.category}/archive/[${params.Channel}]`}
+              key={params.Channel}
+            >
               <p className={styles.textChannel}>all {params.channel}</p>
             </Link>
           </div>
           <div className={styles.highlight}>
             {first && (
-              <div className={styles.topHighlight}>
+              <Link
+                className={styles.topHighlight}
+                key={first.id}
+                href={{
+                  pathname: `/blog/[id]`,
+                }}
+                as={`/blog/${first.id}`}
+              >
                 <Image
                   alt="Highlight News image"
                   src={first.image}
@@ -82,11 +95,18 @@ const Channel = async ({params}) => {
                   }}
                 />
                 <h4>{first.title}</h4>
-              </div>
+              </Link>
             )}
             <div className={styles.moreHighlight}>
               {other.map((item) => (
-                <div key={item.id} className={styles.moreNews}>
+                <Link
+                  className={styles.moreNews}
+                  key={item.id}
+                  href={{
+                    pathname: `/blog/[id]`,
+                  }}
+                  as={`/blog/${item.id}`}
+                >
                   <Image
                     alt="Highlight News image"
                     src={item.image}
@@ -100,14 +120,21 @@ const Channel = async ({params}) => {
                     }}
                   />
                   <h4>{item.title}</h4>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
           <h3>Latest News</h3>
           <div className={styles.latest}>
             {paginatedPosts.map((item) => (
-              <div key={item.id} className={styles.latestCard}>
+              <Link
+                className={styles.latestCard}
+                key={item.id}
+                href={{
+                  pathname: `/blog/[id]`,
+                }}
+                as={`/blog/${item.id}`}
+              >
                 <Image
                   alt="Latest News image"
                   src={item.image}
@@ -132,7 +159,7 @@ const Channel = async ({params}) => {
                     <p>{calculateElapsedTime(item.date)}</p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
             <Pagination
               items={latest.length} // 100
@@ -148,6 +175,4 @@ const Channel = async ({params}) => {
       </div>
     </div>
   );
-};
-
-export default Channel;
+}
