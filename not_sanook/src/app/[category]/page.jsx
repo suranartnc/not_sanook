@@ -23,7 +23,6 @@ function getChannel(data) {
 
   data.forEach((item, index) => {
     const channel = item.channel;
-
     if (!usedChannel.includes(channel)) {
       modifiedData.push({
         id: index,
@@ -33,6 +32,7 @@ function getChannel(data) {
       usedChannel.push(channel);
       index++;
     }
+
   });
   return modifiedData;
 }
