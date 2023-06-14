@@ -1,15 +1,17 @@
+import React from "react";
 import Link from "next/link";
 import styles from "./mostbar.module.css";
+import Image from "next/image";
 
 async function getData() {
-    const response = await fetch(
-      `http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`
-    ); // replace with your API endpoint
-    const data = await response.json();
-    return data;
+  const response = await fetch(
+    `http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`
+  ); // replace with your API endpoint
+  const data = await response.json();
+  return data;
 }
 
-const Mostbar = async () => {
+export default async function Mostbar() {
   const data = await getData();
 
   return (
@@ -20,14 +22,25 @@ const Mostbar = async () => {
           {data.map((item, index) => (
             <Link
               key={item.id}
-              href={`/${item.id}`}
+              href={{
+                pathname: `/blog/[id]`,
+              }}
+              as={`/blog/${item.id}`}
               className={styles.columnItem}
             >
               <h3 className={styles.number}>{index + 1}</h3>
               <div className={styles.cardItem}>
-                <img
+                <Image
                   src={item.image}
-                  alt={item.text}
+                  alt="image"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: "10px",
+                  }}
                   className={styles.image}
                 />
                 <p className={styles.text}>{item.title}</p>
@@ -38,6 +51,4 @@ const Mostbar = async () => {
       </div>
     </div>
   );
-};
-
-export default Mostbar;
+}

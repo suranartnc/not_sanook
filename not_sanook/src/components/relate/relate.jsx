@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Image from "next/image";
 import styles from "./relate.module.css";
 import RightArrow from "../../../public/right_arrow_icon.png";
@@ -14,7 +15,7 @@ async function getData(category, channel, id) {
   return response.json();
 }
 
-const Relate = async ({ channel, category, id }) => {
+export default async function Relate({ channel, category, id }) {
   const data = await getData(category, channel, id);
 
   return (
@@ -22,7 +23,7 @@ const Relate = async ({ channel, category, id }) => {
       <div className={styles.relate}>
         <div className={styles.relateTopic}>
           <h2>ข่าวที่เกี่ยวข้อง</h2>
-          <Image className={styles.customIcon} src={RightArrow} />
+          <Image className={styles.customIcon} src={RightArrow} alt="Arrow right icon"/>
         </div>
         <div className={styles.divider} />
         <div className={styles.grid}>
@@ -50,6 +51,4 @@ const Relate = async ({ channel, category, id }) => {
       </div>
     </div>
   );
-};
-
-export default Relate;
+}

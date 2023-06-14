@@ -1,6 +1,6 @@
 "use client";
 import Mostview from "@/components/mostview/Mostview";
-import Pagination from "../../components/pagination/Pagination";
+import Pagination from "@/components/pagination/Pagination";
 import styles from "./page.module.css";
 import Clock from "../../../public/clock_icon.png";
 import React, { useState } from "react";
@@ -17,9 +17,6 @@ async function getData(category) {
 function getChannel(data) {
   const usedChannel = [];
   const modifiedData = [];
-  const getChannelURL = (channel) => {
-    return `portfolio/${channel}`;
-  };
 
   data.forEach((item, index) => {
     const channel = item.channel;
@@ -28,7 +25,6 @@ function getChannel(data) {
       modifiedData.push({
         id: index,
         channel: channel,
-        channelURL: getChannelURL(channel),
       });
       usedChannel.push(channel);
       index++;
@@ -37,7 +33,7 @@ function getChannel(data) {
   return modifiedData;
 }
 
-const Category = async ({ params }) => {
+export default async function Category({params}) {
   const [currentPage, setCurrentPage] = useState(1);
   const category = params.category;
   const data = await getData(category);
@@ -73,6 +69,7 @@ const Category = async ({ params }) => {
 
   const onPageChange = (page) => {
     setCurrentPage(page);
+    // window.alert(page);
   };
 
   const paginate = (items, pageNumber, pageSize) => {
@@ -99,7 +96,13 @@ const Category = async ({ params }) => {
                 <p className={styles.textChannel}>{item.channel}</p>
               </Link>
             ))}
-            <Link href={`/${category}/archive`}>
+            <Link
+              href={{
+                pathname: `/[category]/archive`,
+              }}
+              as={`${category}/archive`}
+              key={category}
+            >
               <p className={styles.textChannel}>all {category}</p>
             </Link>
           </div>
@@ -193,9 +196,9 @@ const Category = async ({ params }) => {
               </Link>
             ))}
             <Pagination
-              items={latest.length} // 100
-              currentPage={currentPage} // 1
-              pageSize={pageSize} // 10
+              items={latest.length}
+              currentPage={currentPage}
+              pageSize={pageSize}
               onPageChange={onPageChange}
             />
           </div>
@@ -206,6 +209,4 @@ const Category = async ({ params }) => {
       </div>
     </div>
   );
-};
-
-export default Category;
+}

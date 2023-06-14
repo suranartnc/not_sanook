@@ -3,7 +3,7 @@ import Mostview from "@/components/mostview/Mostview";
 import Pagination from "@/components/pagination/Pagination";
 import styles from "./page.module.css";
 import Clock from "../../../../public/clock_icon.png";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ async function getData(category, channel) {
   return response.json();
 }
 
-const Channel = async ({ params }) => {
+export default async function Channel({ params }) {
   const [currentPage, setCurrentPage] = useState(1);
   const data = await getData(params.category, params.channel);
 
@@ -62,7 +62,13 @@ const Channel = async ({ params }) => {
         <div className={styles.boxLeft}>
           <div className={styles.channel}>
             <h3 className={styles.textCategory}>{params.channel}</h3>
-            <Link href={`/archive`}>
+            <Link
+              href={{
+                pathname: `/[category]/archive/[channel]`,
+              }}
+              as={`${params.category}/archive/[${params.Channel}]`}
+              key={params.Channel}
+            >
               <p className={styles.textChannel}>all {params.channel}</p>
             </Link>
           </div>
@@ -169,6 +175,4 @@ const Channel = async ({ params }) => {
       </div>
     </div>
   );
-};
-
-export default Channel;
+}
