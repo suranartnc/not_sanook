@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import styles from "./mostview.module.css";
 import Link from "next/link";
@@ -12,7 +13,7 @@ async function getData(category, channel, id) {
   return response.json();
 }
 
-const Mostview = async ({ category, channel, id }) => {
+export default async function Mostview({ category, channel, id }){
   const data = await getData(category, channel, id);
 
   return (
@@ -52,4 +53,3 @@ const Mostview = async ({ category, channel, id }) => {
   );
 };
 
-export default Mostview;

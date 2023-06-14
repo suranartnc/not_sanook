@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import styles from "./review.module.css";
 import Image from "next/image";
@@ -10,7 +11,7 @@ async function getData() {
   return data;
 }
 
-const RowColumn = async () => {
+export default async function Review() {
   const data = await getData();
 
   const firstCategory = data[0]?.category;
@@ -19,16 +20,37 @@ const RowColumn = async () => {
 
   return (
     <div className={styles.container}>
-      <Link href={`/${firstCategory}`} className={styles.title}>
+      <Link
+        key={firstCategory}
+        href={{
+          pathname: `/[category]`,
+        }}
+        as={`/${firstCategory}`}
+        className={styles.title}
+      >
         <div className={styles.category}>{firstCategory}</div>
-        <Image src="/right.png" width={25} height={25} alt="right" />
+        <Image src="/right.png" width={25} height={25} alt="Arrow right icon" />
       </Link>
       <div className={styles.separator} />
       <div className={styles.categoryBox}>
         <div className={styles.topNews}>
           {firstColumn.map((item) => (
-            <Link key={item.id} href={`/${item.id}`}>
-              <img src={item.image} className={styles.topImage} />
+            <Link
+              key={item.id}
+              href={{
+                pathname: `/blog/[id]`,
+              }}
+              as={`/blog/${item.id}`}
+            >
+              <Image
+                src={item.image}
+                className={styles.topImage}
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+                alt="News image"
+              />
               <h3 className={styles.topText}>{item.title}</h3>
             </Link>
           ))}
@@ -36,9 +58,17 @@ const RowColumn = async () => {
 
         <div className={styles.moreNews}>
           {secondColumn.map((item) => (
-            <Link key={item.id} className={styles.moreBox} href={`/${item.id}`}>
-              <img
+            <Link
+              key={item.id}
+              className={styles.moreBox}
+              href={{
+                pathname: `/blog/[id]`,
+              }}
+              as={`/blog/${item.id}`}
+            >
+              <Image
                 src={item.image}
+                alt="News image"
                 width={0}
                 height={0}
                 sizes="100vw"
@@ -51,6 +81,4 @@ const RowColumn = async () => {
       </div>
     </div>
   );
-};
-
-export default RowColumn;
+}
