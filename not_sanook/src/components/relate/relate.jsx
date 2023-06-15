@@ -1,29 +1,41 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./relate.module.css";
 import RightArrow from "../../../public/right_arrow_icon.png";
 import Link from "next/link";
 
-async function getData(category, channel, id) {
-  let url = "http://localhost:3003/contents/?_limit=3&";
-  if (category) url += `category=${category}&`;
-  if (channel) url += `channel=${channel}&`;
-  if (id) url += `id_ne=${id}`;
+export default function Relate({ channel, category, id }) {
+  const [data, setData] = useState([]);
 
-  const response = await fetch(url);
-  return response.json();
-}
+  useEffect(() => {
+    if (category || channel || id) {
+      fetchData();
+    }
+  }, [category, channel, id]);
 
-export default async function Relate({ channel, category, id }) {
-  const data = await getData(category, channel, id);
+  const fetchData = async () => {
+    let url = "http://localhost:3003/contents/?_limit=3&";
+    if (category) url += `category=${category}&`;
+    if (channel) url += `channel=${channel}&`;
+    if (id) url += `id_ne=${id}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    setData(data);
+  };
 
   return (
     <div>
       <div className={styles.relate}>
         <div className={styles.relateTopic}>
           <h2>ข่าวที่เกี่ยวข้อง</h2>
-          <Image className={styles.customIcon} src={RightArrow} alt="Arrow right icon"/>
+          <Image
+            className={styles.customIcon}
+            src={RightArrow}
+            alt="Arrow right icon"
+          />
         </div>
         <div className={styles.divider} />
         <div className={styles.grid}>

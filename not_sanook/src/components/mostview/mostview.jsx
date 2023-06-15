@@ -1,20 +1,29 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./mostview.module.css";
 import Link from "next/link";
 
-async function getData(category, channel, id) {
-  let url = "http://localhost:3003/contents/?_limit=3&_order=desc&";
-  if (category) url += `category=${category}&`;
-  if (channel) url += `channel=${channel}&`;
-  if (id) url += `id_ne=${id}`;
+export default  function Mostview({ category, channel, id }) {
+  const [data, setData] = useState([]);
 
-  const response = await fetch(url);
-  return response.json();
-}
+  useEffect(() => {
+    if (category || channel || id) {
+      fetchData();
+    }
+  }, [category, channel, id]);
 
-export default async function Mostview({ category, channel, id }) {
-  const data = await getData(category, channel, id);
+  const fetchData = async () => {
+    let url = "http://localhost:3003/contents/?_limit=3&?_sort=views&_order=desc&";
+    if (category) url += `category=${category}&`;
+    if (channel) url += `channel=${channel}&`;
+    if (id) url += `id_ne=${id}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    setData(data);
+  };
 
   return (
     <div className={styles.mostview}>

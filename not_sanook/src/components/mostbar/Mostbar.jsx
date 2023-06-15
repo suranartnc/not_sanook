@@ -1,18 +1,25 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./mostbar.module.css";
 import Image from "next/image";
 
-async function getData() {
-  const response = await fetch(
-    `http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`
-  ); // replace with your API endpoint
-  const data = await response.json();
-  return data;
-}
+export default function Mostbar() {
+  const [data, setData] = useState([]);
 
-export default async function Mostbar() {
-  const data = await getData();
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`);
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   return (
     <div className={styles.container}>

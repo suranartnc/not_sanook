@@ -1,34 +1,48 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./scoop.module.css";
 import Image from "next/image";
 
-async function getData() {
-  const response = await fetch(
-    `http://localhost:3003/contents/?category=scoop&_limit=5`
-  );
-  const data = await response.json();
-  return data;
-}
+export default function Scoop() {
+  const [category, setCategory] = useState([]);
+  const [first, setFirst] = useState([]);
+  const [second, setSecond] = useState([]);
 
-export default async function Scoop() {
-  const data = await getData();
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const firstCategory = data[0].category;
-  const firstColumn = data.slice(0, 1);
-  const secondColumn = data.slice(1, 5);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3003/contents/?category=scoop&_limit=5`
+      );
+      const json = await response.json();
+
+      const firstCategory = json[0].category;
+      const firstColumn = json.slice(0, 1);
+      const secondColumn = json.slice(1, 5);
+
+      setCategory(firstCategory);
+      setFirst(firstColumn);
+      setSecond(secondColumn);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <Link
-        key={firstCategory}
+        key={category}
         href={{
           pathname: `/[category]`,
         }}
-        as={`/${firstCategory}`}
+        as={`/${category}`}
         className={styles.title}
       >
-        <div className={styles.category}>{firstCategory}</div>
+        <div className={styles.category}>{category}</div>
         <Image
           src="/right.png"
           width={25}
@@ -39,7 +53,7 @@ export default async function Scoop() {
       <div className={styles.separator} />
       <div className={styles.categoryBox}>
         <div className={styles.topNews}>
-          {firstColumn.map((item) => (
+          {first.map((item) => (
             <Link
               key={item.id}
               href={{
@@ -62,7 +76,7 @@ export default async function Scoop() {
         </div>
 
         <div className={styles.moreNews}>
-          {secondColumn.map((item) => (
+          {second.map((item) => (
             <Link
               key={item.id}
               className={styles.moreBox}
