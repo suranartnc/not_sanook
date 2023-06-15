@@ -13,7 +13,7 @@ async function getData(category, channel, id) {
   return response.json();
 }
 
-export default async function Mostview({ category, channel, id }){
+export default async function Mostview({ category, channel, id }) {
   const data = await getData(category, channel, id);
 
   return (
@@ -51,5 +51,4 @@ export default async function Mostview({ category, channel, id }){
       ))}
     </div>
   );
-};
-
+}
