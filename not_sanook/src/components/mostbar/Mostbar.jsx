@@ -13,18 +13,20 @@ export default function Mostbar() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`);
+      const response = await fetch(
+        `http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`
+      );
       const json = await response.json();
       setData(json);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.most}>Most viewed</h1>
-      <div className={styles.box}>
+      <fieldset className={styles.box}>
+        <legend className={styles.most}>Most viewed</legend>
         <div className={styles.rowItem}>
           {data.map((item, index) => (
             <Link
@@ -47,6 +49,7 @@ export default function Mostbar() {
                     width: "100%",
                     height: "auto",
                     borderRadius: "10px",
+                    objectFit: "cover",
                   }}
                   className={styles.image}
                 />
@@ -55,7 +58,7 @@ export default function Mostbar() {
             </Link>
           ))}
         </div>
-      </div>
+      </fieldset>
     </div>
   );
 }

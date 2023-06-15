@@ -3,8 +3,14 @@ import React from "react";
 import styles from "./navbar.module.css";
 import Search from "@/components/search/Search";
 import Dropdown from "@/components/dropdown/Dropdown";
+import Darkmode from "@/components/darkmode/Darkmode";
 import Image from "next/image";
-import Sanook from "../../../public/sanook.png";
+import Sanook from "public/sanook.png";
+import Lotto from "public/Lotto.png";
+import Joox from "public/Joox.png";
+import WeTV from "public/WeTV.png";
+import WeComics from "public/WeComics.png";
+import Pubg from "public/Pubg.png";
 
 export default function Navbar() {
   const currentDate = new Date().toLocaleDateString();
@@ -31,30 +37,32 @@ export default function Navbar() {
           <h4>Login</h4>
           <div className={styles.divider} />
           <h4>Register</h4>
+          <div className={styles.divider} />
+          <Darkmode />
         </div>
       </div>
       <div className={styles.nav2}>
-        <Dropdown/>
+        <Dropdown />
         <div className={styles.navRight}>
           <div className={styles.feature}>
             <div className={styles.app}>
-              <Image src="/Lotto.png" width={30} height={30} alt="ตรวจหวย" />
+              <Image src={Lotto} width={30} height={30} alt="ตรวจหวย" />
               <h5 className={styles.most}>ตรวจหวย</h5>
             </div>
             <div className={styles.app}>
-              <Image src="/Joox.png" width={30} height={30} alt="Joox" />
+              <Image src={Joox} width={30} height={30} alt="Joox" />
               <h5 className={styles.most}>Joox</h5>
             </div>
             <div className={styles.app}>
-              <Image src="/TV.png" width={30} height={30} alt="TV" />
+              <Image src={WeTV} width={30} height={30} alt="TV" />
               <h5 className={styles.most}>WeTV</h5>
             </div>
             <div className={styles.app}>
-              <Image src="/Comic.png" width={30} height={30} alt="Comics" />
+              <Image src={WeComics} width={30} height={30} alt="Comics" />
               <h5 className={styles.most}>WeComics</h5>
             </div>
             <div className={styles.app}>
-              <Image src="/Pubg.png" width={30} height={30} alt="PubG" />
+              <Image src={Pubg} width={30} height={30} alt="PubG" />
               <h5 className={styles.most}>PUBG</h5>
             </div>
           </div>
