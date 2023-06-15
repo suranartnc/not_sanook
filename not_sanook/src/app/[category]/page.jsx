@@ -1,49 +1,48 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import Mostview from "@/components/mostview/Mostview";
 import Pagination from "@/components/pagination/Pagination";
 import styles from "./page.module.css";
 import Clock from "../../../public/clock_icon.png";
-import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
-async function getData(category) {
-  const response = await fetch(
-    `http://localhost:3003/contents/?category=${category}`
-  );
-  return response.json();
-}
-
-function getChannel(data) {
-  const usedChannel = [];
-  const modifiedData = [];
-
-  data.forEach((item, index) => {
-    const channel = item.channel;
-    if (!usedChannel.includes(channel)) {
-      modifiedData.push({
-        id: index,
-        channel: channel,
-      });
-      usedChannel.push(channel);
-      index++;
-    }
-
-  });
-  return modifiedData;
-}
-
-export default async function Category({params}) {
+export default function Category() {
+  const [first, setFirst] = useState([]);
+  const [other, setOther] = useState([]);
+  const [late, setLate] = useState([]);
+  const [channel, setChannel] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const params = useParams();
   const category = params.category;
-  const data = await getData(category);
-  const channel = getChannel(data);
 
-  const random = data.sort(() => Math.random() - 0.5);
-  const first = random[0];
-  const other = random.slice(1, 5);
+  useEffect(() => {
+    if (category) {
+      fetchData();
+    }
+  }, [category]);
 
-  const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3003/contents/?category=${category}`
+      );
+      const data = await response.json();
+
+      const random = data.sort(() => Math.random() - 0.5);
+      const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const firstNews = random[0];
+      const otherNews = random.slice(1, 5);
+
+      setLate(latest);
+      setFirst(firstNews);
+      setOther(otherNews);
+      setChannel(getChannel(data));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const calculateElapsedTime = (time) => {
     const currentDateTime = new Date();
@@ -77,7 +76,7 @@ export default async function Category({params}) {
     return items.slice(startIndex, startIndex + pageSize);
   };
 
-  const paginatedPosts = paginate(latest, currentPage, pageSize);
+  const paginatedPosts = paginate(late, currentPage, pageSize);
 
   return (
     <div>
@@ -196,7 +195,7 @@ export default async function Category({params}) {
               </Link>
             ))}
             <Pagination
-              items={latest.length}
+              items={late.length}
               currentPage={currentPage}
               pageSize={pageSize}
               onPageChange={onPageChange}
@@ -209,4 +208,22 @@ export default async function Category({params}) {
       </div>
     </div>
   );
+}
+
+function getChannel(data) {
+  const usedChannel = [];
+  const modifiedData = [];
+
+  data.forEach((item, index) => {
+    const channel = item.channel;
+    if (!usedChannel.includes(channel)) {
+      modifiedData.push({
+        id: index,
+        channel: channel,
+      });
+      usedChannel.push(channel);
+      index++;
+    }
+  });
+  return modifiedData;
 }

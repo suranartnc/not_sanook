@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import LineIcon from "../.././../../public/line_icon.png";
@@ -10,13 +10,24 @@ import LinkIcon from "../.././../../public/link_icon.png";
 import Mostview from "@/components/mostview/Mostview";
 import Relate from "@/components/relate/Relate";
 
-async function getData(id) {
-  const response = await fetch(`http://localhost:3003/contents/${id}`);
-  return response.json();
-}
+export default  function Detail({ params }) {
+  const [data, setData] = useState([]); 
 
-export default async function Detail({ params }) {
-  const data = await getData(params.id);
+  useEffect(() => {
+    if (params.id) {
+      fetchData();
+    }
+  }, [params.id]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://localhost:3003/contents/${params.id}`);
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   return (
     <div>

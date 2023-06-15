@@ -1,27 +1,45 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import Mostview from "@/components/mostview/Mostview";
 import Pagination from "@/components/pagination/Pagination";
 import styles from "./page.module.css";
 import Clock from "../../../../public/clock_icon.png";
-import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-async function getData(category, channel) {
-  const response = await fetch(
-    `http://localhost:3003/contents/?category=${category}&channel=${channel}`
-  );
-  return response.json();
-}
-
-export default async function Channel({ params }) {
+export default function Channel({ params }) {
+  const [first, setFirst] = useState([]);
+  const [other, setOther] = useState([]);
+  const [late, setLate] = useState([]);
+  const [channel, setChannel] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const data = await getData(params.category, params.channel);
 
-  const random = data.sort(() => Math.random() - 0.5);
-  const first = random[0];
-  const other = random.slice(1, 5);
-  const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+  useEffect(() => {
+    if (params.category || params.channel) {
+      fetchData();
+    }
+  }, [params.category, params.channel]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3003/contents/?category=${params.category}&channel=${params.channel}`
+      );
+      const data = await response.json();
+
+      const random = data.sort(() => Math.random() - 0.5);
+      const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const firstNews = random[0];
+      const otherNews = random.slice(1, 5);
+
+      setLate(latest);
+      setFirst(firstNews);
+      setOther(otherNews);
+      setChannel(getChannel(data));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const calculateElapsedTime = (time) => {
     const currentDateTime = new Date();
@@ -54,7 +72,7 @@ export default async function Channel({ params }) {
     return items.slice(startIndex, startIndex + pageSize);
   };
 
-  const paginatedPosts = paginate(latest, currentPage, pageSize);
+  const paginatedPosts = paginate(late, currentPage, pageSize);
 
   return (
     <div>
@@ -64,9 +82,9 @@ export default async function Channel({ params }) {
             <h3 className={styles.textCategory}>{params.channel}</h3>
             <Link
               href={{
-                pathname: `/[category]/archive/[channel]`,
+                pathname: `/archive/[channel]`,
               }}
-              as={`${params.category}/archive/[${params.Channel}]`}
+              as={`/archive/[${params.Channel}]`}
               key={params.Channel}
             >
               <p className={styles.textChannel}>all {params.channel}</p>
@@ -162,7 +180,7 @@ export default async function Channel({ params }) {
               </Link>
             ))}
             <Pagination
-              items={latest.length} // 100
+              items={late.length} // 100
               currentPage={currentPage} // 1
               pageSize={pageSize} // 10
               onPageChange={onPageChange}

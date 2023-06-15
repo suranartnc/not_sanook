@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Clock from "../../../../public/clock_icon.png";
 import styles from "./page.module.css";
 import Link from "next/link";
@@ -7,39 +7,38 @@ import Image from "next/image";
 import Mostview from "@/components/mostview/Mostview";
 import Pagination from "../../../components/pagination/Pagination";
 
-async function getData(category) {
-  const response = await fetch(
-    `http://localhost:3003/contents/?category=${category}`
-  );
-  return response.json();
-}
-
-function getChannel(data) {
-  const usedChannel = [];
-  const modifiedData = [];
-
-  data.forEach((item, index) => {
-    const channel = item.channel;
-    if (!usedChannel.includes(channel)) {
-      modifiedData.push({
-        id: index,
-        channel: channel,
-      });
-      usedChannel.push(channel);
-      index++;
-    }
-  });
-  return modifiedData;
-}
-
-const Archive = async ({ params }) => {
+export default function Archive({ params }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [late, setLate] = useState([]);
+  const [views, setViews] = useState([]);
+  const [channel, setChannel] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("latest");
   const [filteredData, setFilteredData] = useState([]);
 
-  const category = params.category;
-  const data = await getData(category);
-  const channels = getChannel(data);
+  useEffect(() => {
+    if (params.category || params.channel) {
+      fetchData();
+    }
+  }, [params.category, params.channel]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3003/contents/?category=${category}&channel=${channel}`
+      );
+      const data = await response.json();
+
+      const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const viewed = data.sort((a, b) => b.views - a.views);
+
+      setLate(latest);
+      setViews(viewed);
+      setChannel(getChannel(data));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
 
   const calculateElapsedTime = (time) => {
     const currentDateTime = new Date();
@@ -61,18 +60,15 @@ const Archive = async ({ params }) => {
     }
   };
 
-  const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-  const viewed = data.sort((a, b) => b.views - a.views);
-
   const pageSize = 4;
 
   const filterData = (filter) => {
     let sortedData = [];
 
     if (filter === "latest") {
-      sortedData = latest;
+      sortedData = late;
     } else if (filter === "mostViewed") {
-      sortedData = viewed;
+      sortedData = views;
     }
 
     const paginate = (items, pageNumber, pageSize) => {
@@ -125,7 +121,7 @@ const Archive = async ({ params }) => {
             <Image src="/down.png" width={20} height={20} alt="right" />
           </div>
           <div className={styles.contents}>
-            {channels.map((item) => (
+            {channel.map((item) => (
               <div className={styles.channel}>{item.channel}</div>
             ))}
           </div>
@@ -180,4 +176,21 @@ const Archive = async ({ params }) => {
   );
 };
 
-export default Archive;
+
+function getChannel(data) {
+  const usedChannel = [];
+  const modifiedData = [];
+
+  data.forEach((item, index) => {
+    const channel = item.channel;
+    if (!usedChannel.includes(channel)) {
+      modifiedData.push({
+        id: index,
+        channel: channel,
+      });
+      usedChannel.push(channel);
+      index++;
+    }
+  });
+  return modifiedData;
+}
