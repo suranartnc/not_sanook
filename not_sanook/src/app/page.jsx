@@ -8,7 +8,7 @@ import Mostbar from "../components/mostbar/Mostbar";
 import Scoop from "../components/scoop/Scoop";
 import Review from "../components/review/Review";
 
-export default async function Homee() {
+export default async function Home() {
   // const data = await getData(params);
 
   // async function getData() {
