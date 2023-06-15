@@ -1,7 +1,6 @@
 import styles from "./pagination.module.css";
-import React from "react";
 
-export default async function Pagination({
+export default function Pagination({
   items,
   pageSize,
   currentPage,

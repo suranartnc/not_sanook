@@ -1,67 +1,12 @@
-"use client";
 import Link from "next/link";
 import React from "react";
 import styles from "./navbar.module.css";
+import Search from "@/components/search/Search";
+import Dropdown from "@/components/dropdown/Dropdown";
 import Image from "next/image";
 import Sanook from "../../../public/sanook.png";
-import Search from "../../../public/search.png";
 
-async function getData() {
-  const response = await fetch(`http://localhost:3003/contents/`);
-  return response.json();
-}
-
-function getCategoryAndChannel(data) {
-  const usedCategories = [];
-  const modifiedData = [];
-  function getChannelURL(category, channel) {
-    return `/${category}/${channel}`;
-  }
-
-  data.forEach((item, index) => {
-    const category = item.category;
-    const channel = item.channel;
-
-    if (!usedCategories.includes(category)) {
-      modifiedData.push({
-        id: index,
-        category: category,
-        channels: [
-          {
-            id: 1,
-            name: channel,
-            url: getChannelURL(category, channel),
-          },
-        ],
-      });
-
-      usedCategories.push(category);
-      index++;
-    } else {
-      const categoryIndex = modifiedData.findIndex(
-        (entry) => entry.category === category
-      );
-      const existingChannel = modifiedData[categoryIndex].channels.find(
-        (ch) => ch.name === channel
-      );
-
-      if (!existingChannel) {
-        const channelId = modifiedData[categoryIndex].channels.length + 1;
-        modifiedData[categoryIndex].channels.push({
-          id: channelId,
-          name: channel,
-          url: getChannelURL(category, channel),
-        });
-      }
-    }
-  });
-  return modifiedData;
-}
-
-export default async function Navbar() {
-  const data = await getData();
-  const useData = getCategoryAndChannel(data);
-
+export default function Navbar() {
   const currentDate = new Date().toLocaleDateString();
 
   return (
@@ -80,14 +25,7 @@ export default async function Navbar() {
           <p className={styles.most}>{currentDate}</p>
         </div>
         <div className={styles.navMid}>
-          <input className={styles.input} type="text" placeholder="Search" />
-          <Image
-            className={styles.inputIcon}
-            src={Search}
-            width={20}
-            height={20}
-            alt="Search icon"
-          />
+          <Search />
         </div>
         <div className={styles.navRight}>
           <h4>Login</h4>
@@ -96,35 +34,7 @@ export default async function Navbar() {
         </div>
       </div>
       <div className={styles.nav2}>
-        <div className={styles.navLeft}>
-          {useData.map((category) => (
-            <div className={styles.dropdown}>
-              <Link
-                key={category.id}
-                href={{
-                  pathname: `/[category]`,
-                }}
-                as={`/${category.category}`}
-                className={styles.container}
-              >
-                <h4 className={styles.category}>{category.category}</h4>
-              </Link>
-              <div className={styles.contents}>
-                {category.channels.map((channel) => (
-                  <Link
-                    key={channel.id}
-                    href={{
-                      pathname: `/[category]/[channel]`,
-                    }}
-                    as={channel.url}
-                  >
-                    <h4 className={styles.channel}>{channel.name}</h4>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <Dropdown/>
         <div className={styles.navRight}>
           <div className={styles.feature}>
             <div className={styles.app}>
