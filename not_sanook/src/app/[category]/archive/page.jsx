@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from "react";
 import Clock from "../../../../public/clock_icon.png";
 import styles from "./page.module.css";
-import Link from "next/link";
 import Image from "next/image";
 import Mostview from "@/components/mostview/Mostview";
 import Pagination from "../../../components/pagination/Pagination";
+import Link from "next/link";
 
 export default function Archive({ params }) {
+
   const [currentPage, setCurrentPage] = useState(1);
   const [late, setLate] = useState([]);
   const [views, setViews] = useState([]);
@@ -39,7 +40,6 @@ export default function Archive({ params }) {
     }
   };
 
-
   const calculateElapsedTime = (time) => {
     const currentDateTime = new Date();
     const newsDate = new Date(time);
@@ -48,7 +48,6 @@ export default function Archive({ params }) {
     const elapsedMinutes = Math.floor(elapsedSeconds / 60);
     const elapsedHours = Math.floor(elapsedMinutes / 60);
     const elapsedDays = Math.floor(elapsedHours / 24);
-
     if (elapsedSeconds < 60) {
       return `${elapsedSeconds} second${elapsedSeconds !== 1 ? "s" : ""} ago`;
     } else if (elapsedMinutes < 60) {
@@ -59,73 +58,90 @@ export default function Archive({ params }) {
       return `${elapsedDays} day${elapsedDays !== 1 ? "s" : ""} ago`;
     }
   };
-
+  
   const pageSize = 4;
-
   const filterData = (filter) => {
     let sortedData = [];
-
     if (filter === "latest") {
       sortedData = late;
     } else if (filter === "mostViewed") {
       sortedData = views;
     }
-
     const paginate = (items, pageNumber, pageSize) => {
       const startIndex = (pageNumber - 1) * pageSize;
       return items.slice(startIndex, startIndex + pageSize);
     };
-
     const paginatedPosts = paginate(sortedData, currentPage, pageSize);
     setFilteredData(paginatedPosts);
     return paginatedPosts;
   };
-
   const defaultFilter = filterData(selectedFilter);
-
   const handleFilterChange = (event) => {
     const filter = event.target.value;
     setSelectedFilter(filter);
-
     if (filter === 'latest') {
       const filteredItems = data.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFilteredData(filteredItems);
     } else if (filter === 'mostViewed') {
       const filteredItems = data.sort((a, b) => b.views - a.views);
       setFilteredData(filteredItems);
-    } 
+    }
   };
-
-  // const handleFilterChange = (event) => {
-  //   const filter = event.target.value;
-  //   setSelectedFilter(filter);
-  //   filterData(filter);
-  // };
-
   const handleClick = () => {
     filterData(selectedFilter);
   };
-
   const onPageChange = (page) => {
     setCurrentPage(page);
     filterData(selectedFilter);
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.boxLeft}>
-        <div>เนื้อหาทั้งหมด{filteredData.length}</div>
+        <div>เนื้อหาทั้งหมด</div>
+
+
         <div className={styles.dropdown}>
-          <div className={styles.category}> เนื้อหาทั้งหมด </div>
+        <div className={styles.navLeft}>
+          {useData.map((category) => (
+            <div className={styles.dropdown}>
+              <Link
+                key={category.id}
+                href={{
+                  pathname: `/[category]`,
+                }}
+                as={`/${category.category}`}
+                className={styles.container}
+              >
+                <h4 className={styles.category}>{category.category}</h4>
+              </Link>
+              <div className={styles.contents}>
+                {category.channels.map((channel) => (
+                  <Link
+                    key={channel.id}
+                    href={{
+                      pathname: `/[category]/archive`,
+                    }}
+                    as={channel.url}
+                  >
+                    <h4 className={styles.channel}>{channel.name}</h4>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
           <div className={styles.down}>
             <Image src="/down.png" width={20} height={20} alt="right" />
           </div>
           <div className={styles.contents}>
             {channel.map((item) => (
+
               <div className={styles.channel}>{item.channel}</div>
             ))}
           </div>
         </div>
+
+
         <div className={styles.dropdown}>
           <div>
             <select value={selectedFilter} onChange={handleFilterChange}>
@@ -135,8 +151,9 @@ export default function Archive({ params }) {
             <button onClick={handleClick}>Sort</button>
           </div>
         </div>
+        
         <div className={styles.latest}>
-          {filteredData.map((item) => (
+          {defaultFilter.map((item) => (
             <div key={item.id} className={styles.latestCard}>
               <Image
                 alt="Latest News image"
