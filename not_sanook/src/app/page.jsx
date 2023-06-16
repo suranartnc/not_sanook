@@ -8,21 +8,10 @@ import Mostbar from "@/components/mostbar/Mostbar";
 import Scoop from "@/components/scoop/Scoop";
 import Review from "@/components/review/Review";
 
-export default async function Home() {
-  // const data = await getData(params);
-
-  // async function getData() {
-  //   const res = await fetch(
-  //     "http://localhost:3003/contents/?category=scoop&_limit=5"
-  //   );
-  //   if (!res.ok) {
-  //     throw new Error("Failed to fetch data");
-  //   }
-  
-  //   return res.json();
-  // }
+export default function Home() {
   return (
     <div className={styles.container}>
+      <title>Not Sanook</title>
       <Slider />
       <Mostbar />
       <Scoop />
