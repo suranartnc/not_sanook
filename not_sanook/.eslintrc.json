@@ -5,6 +5,11 @@
   },
   "extends": ["eslint:recommended", "prettier", "plugin:react/recommended"],
   "plugins": ["prettier"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "@next/next/no-img-element": "off",
     "prettier/prettier": [
