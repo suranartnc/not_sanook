@@ -1,23 +1,19 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Clock from "public/clock_icon.png";
-import styles from "./page.module.css";
-import Image from "next/image";
-import Mostview from "@/components/mostview/Mostview";
-import Pagination from "@/components/pagination/Pagination";
-import Link from "next/link";
-import { useParams } from "next/navigation";
+'use client'
+import React, { useState, useEffect } from 'react'
+import Clock from 'public/clock_icon.png'
+import styles from './page.module.css'
+import Image from 'next/image'
+import Mostview from '@/components/mostview/Mostview'
+import Pagination from '@/components/pagination/Pagination'
+import { useParams } from 'next/navigation'
 
 export default function Archive() {
   const params = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const [late, setLate] = useState([]);
-  const [views, setViews] = useState([]);
   const [channel, setChannel] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("date");
   const [selectedFilter1, setSelectedFilter1] = useState("all news");
   const [filteredData, setFilteredData] = useState([]);
-
   const category = params.category;
 
   const fetchData = async (filter, filter1) => {
@@ -37,36 +33,35 @@ export default function Archive() {
       const data1 = await response1.json();
 
       setChannel(getChannel(data1));
-
       setFilteredData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error)
     }
-  };
+  }
 
   const calculateElapsedTime = (time) => {
-    const currentDateTime = new Date();
-    const newsDate = new Date(time);
-    const elapsedMilliseconds = currentDateTime - newsDate;
-    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
-    const elapsedHours = Math.floor(elapsedMinutes / 60);
-    const elapsedDays = Math.floor(elapsedHours / 24);
+    const currentDateTime = new Date()
+    const newsDate = new Date(time)
+    const elapsedMilliseconds = currentDateTime - newsDate
+    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000)
+    const elapsedMinutes = Math.floor(elapsedSeconds / 60)
+    const elapsedHours = Math.floor(elapsedMinutes / 60)
+    const elapsedDays = Math.floor(elapsedHours / 24)
 
     if (elapsedSeconds < 60) {
-      return `${elapsedSeconds} second${elapsedSeconds !== 1 ? "s" : ""} ago`;
+      return `${elapsedSeconds} second${elapsedSeconds !== 1 ? 's' : ''} ago`
     } else if (elapsedMinutes < 60) {
-      return `${elapsedMinutes} minute${elapsedMinutes !== 1 ? "s" : ""} ago`;
+      return `${elapsedMinutes} minute${elapsedMinutes !== 1 ? 's' : ''} ago`
     } else if (elapsedHours < 24) {
-      return `${elapsedHours} hour${elapsedHours !== 1 ? "s" : ""} ago`;
+      return `${elapsedHours} hour${elapsedHours !== 1 ? 's' : ''} ago`
     } else {
-      return `${elapsedDays} day${elapsedDays !== 1 ? "s" : ""} ago`;
+      return `${elapsedDays} day${elapsedDays !== 1 ? 's' : ''} ago`
     }
-  };
+  }
 
   const title = `All ${category}`;
 
-  const pageSize = 4;
+  const pageSize = 4
 
   const handleFilterChange = (event) => {
     const filter = event.target.value;
@@ -87,8 +82,8 @@ export default function Archive() {
   };
 
   const onPageChange = (page) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
 
   useEffect(() => {
     fetchData(selectedFilter1, selectedFilter);
@@ -107,6 +102,7 @@ export default function Archive() {
       <div className={styles.boxLeft}>
         <div className={styles.all}>เนื้อหาทั้งหมด</div>
         <div className={styles.filter}>
+
           <select
             value={selectedFilter1}
             onChange={handleFilterChange1}
@@ -127,6 +123,7 @@ export default function Archive() {
             <option value="date">ใหม่ล่าสุด</option>
             <option value="views">ผู้ชม สูงสุดทั้งหมด</option>
           </select>
+
         </div>
 
         <div className={styles.latest}>
@@ -146,9 +143,9 @@ export default function Archive() {
                 height={0}
                 sizes="100vw"
                 style={{
-                  width: "30%",
-                  height: "auto",
-                  borderRadius: "10px",
+                  width: '30%',
+                  height: 'auto',
+                  borderRadius: '10px',
                 }}
               />
               <div className={styles.detail}>
@@ -182,23 +179,23 @@ export default function Archive() {
         <Mostview category={category} />
       </div>
     </div>
-  );
+  )
 }
 
 function getChannel(data) {
-  const usedChannel = [];
-  const modifiedData = [];
+  const usedChannel = []
+  const modifiedData = []
 
   data.forEach((item, index) => {
-    const channel = item.channel;
+    const channel = item.channel
     if (!usedChannel.includes(channel)) {
       modifiedData.push({
         id: index,
         channel: channel,
-      });
-      usedChannel.push(channel);
-      index++;
+      })
+      usedChannel.push(channel)
+      index++
     }
-  });
-  return modifiedData;
+  })
+  return modifiedData
 }

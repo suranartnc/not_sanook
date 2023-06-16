@@ -1,4 +1,38 @@
 {
-  "presets": ["next/babel"],
-  "plugins": []
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020
+  },
+  "extends": ["eslint:recommended", "prettier", "plugin:react/recommended"],
+  "plugins": ["prettier"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "react/prop-types": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80,
+        "useTabs": false,
+        "tabWidth": 2,
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "all",
+        "jsxBracketSameLine": false,
+        "endOfLine": "auto"
+      }
+    ]
+  },
+  "globals": {
+    "fetch": false
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  }
 }

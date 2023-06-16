@@ -1,34 +1,29 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import styles from "./page.module.css";
-import arrow from "public/right_arrow_icon.png";
-import Slider from "@/components/slider/Slider";
-import Mostbar from "@/components/mostbar/Mostbar";
-import Scoop from "@/components/scoop/Scoop";
-import Review from "@/components/review/Review";
+'use client'
+import React from 'react'
+import Image from 'next/image'
+import styles from './page.module.css'
+import arrow from 'public/right_arrow_icon.png'
+import Slider from '@/components/slider/Slider'
+import Mostbar from '@/components/mostbar/Mostbar'
+import Scoop from '@/components/scoop/Scoop'
+import Review from '@/components/review/Review'
 
-export default async function Home() {
-  // const data = await getData(params);
-
-  // async function getData() {
-  //   const res = await fetch(
-  //     "http://localhost:3003/contents/?category=scoop&_limit=5"
-  //   );
-  //   if (!res.ok) {
-  //     throw new Error("Failed to fetch data");
-  //   }
-  
-  //   return res.json();
-  // }
+export default function Home() {
   return (
     <div className={styles.container}>
+      <title>Not Sanook</title>
       <Slider />
       <Mostbar />
       <Scoop />
       <div className={styles.title}>
         <div className={styles.category}>ดวง-ความเชื่อ-หวย</div>
-        <Image className={styles.arrow} src={arrow} width={25} height={25} alt="Arrow right icon"/>
+        <Image
+          className={styles.arrow}
+          src={arrow}
+          width={25}
+          height={25}
+          alt="Arrow right icon"
+        />
       </div>
       <div className={styles.lottoAndHoro}>
         <div className={styles.boxlot}>
@@ -56,7 +51,12 @@ export default async function Home() {
           <div className={styles.checkNum}>
             <div className={styles.inputDate}>
               <p className={styles.day}>1 มิถุนายน 2566</p>
-              <Image src="/down.png" width={20} height={20} alt="Arrow down icon" />
+              <Image
+                src="/down.png"
+                width={20}
+                height={20}
+                alt="Arrow down icon"
+              />
             </div>
             <div className={styles.inputNum}>
               <input
@@ -65,7 +65,12 @@ export default async function Home() {
                 placeholder="กรอกเลขสลาก"
               />
               <button className={styles.button} type="submit">
-                <Image src="/search.png" width={14} height={14} alt="search icon" />
+                <Image
+                  src="/search.png"
+                  width={14}
+                  height={14}
+                  alt="search icon"
+                />
               </button>
             </div>
           </div>
@@ -117,6 +122,5 @@ export default async function Home() {
       </div>
       <Review />
     </div>
-  );
-};
-
+  )
+}

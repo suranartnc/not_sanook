@@ -1,14 +1,14 @@
-"use client";
-import React from "react";
-import styles from "./footer.module.css";
-import Image from "next/image";
-import Sanook from "public/sanook.png";
-import FB from "public/facebook.png";
-import TW from "public/twitter.png";
-import IG from "public/instagram.png";
-import YT from "public/youtube.png";
-import IN from "public/linkedin.png";
-import LI from "public/line.png";
+'use client'
+import React from 'react'
+import styles from './footer.module.css'
+import Image from 'next/image'
+import Sanook from 'public/sanook.png'
+import FB from 'public/facebook.png'
+import TW from 'public/twitter.png'
+import IG from 'public/instagram.png'
+import YT from 'public/youtube.png'
+import IN from 'public/linkedin.png'
+import LI from 'public/line.png'
 
 export default async function Footer() {
   return (
@@ -17,54 +17,18 @@ export default async function Footer() {
         <Image src={Sanook} width={120} height={17} alt="Sanook icon" />
         <h4>สงวนลิขสิทธิ์ © 2566 บริษัท เทนเซ็นต์ (ประเทศไทย) จำกัด</h4>
         <div className={styles.suggest}>
-          <p
-            onClick={() => {
-              console.log("About us");
-            }}
-          >
-            เกี่ยวกับเรา
-          </p>
+          <p>เกี่ยวกับเรา</p>
           <div className={styles.divider} />
-          <p
-            onClick={() => {
-              console.log("Privacy Policy");
-            }}
-          >
-            นโยบายความเป็นส่วนตัว
-          </p>
+          <p>นโยบายความเป็นส่วนตัว</p>
           <div className={styles.divider} />
-          <p
-            onClick={() => {
-              console.log("Cookie Policy");
-            }}
-          >
-            นโยบายคุกกี้
-          </p>
+          <p>นโยบายคุกกี้</p>
           <div className={styles.divider} />
-          <p
-            onClick={() => {
-              console.log("Inappropriate content");
-            }}
-          >
-            ร้องเรียนเนื้อหาไม่เหมาะสม
-          </p>
+          <p>ร้องเรียนเนื้อหาไม่เหมาะสม</p>
         </div>
       </div>
       <div className={styles.boxRight}>
-        <p
-          onClick={() => {
-            console.log("Give feedback, report problems");
-          }}
-        >
-          แนะนำติชม แจ้งปัญหาการใช้งาน
-        </p>
-        <p
-          onClick={() => {
-            console.log("Work with uss");
-          }}
-        >
-          ร่วมงานกับเรา
-        </p>
+        <p>แนะนำติชม แจ้งปัญหาการใช้งาน</p>
+        <p>ร่วมงานกับเรา</p>
         <div className={styles.contact}>
           <div className={styles.social}>
             <Image src={FB} className={styles.icon} alt="Facebook" />
@@ -89,5 +53,5 @@ export default async function Footer() {
         </div>
       </div>
     </div>
-  );
+  )
 }

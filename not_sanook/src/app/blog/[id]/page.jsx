@@ -1,39 +1,39 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import styles from "./page.module.css";
-import LineIcon from "public/line_icon.png";
-import FBIcon from "public/fb_icon.png";
-import TWIcon from "public/tw_icon.png";
-import ClockIcon from "public/clock_icon.png";
-import LinkIcon from "public/link_icon.png";
-import Mostview from "@/components/mostview/Mostview";
-import Relate from "@/components/relate/Relate";
-import { useParams } from "next/navigation";
+'use client'
+import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
+import styles from './page.module.css'
+import LineIcon from 'public/line_icon.png'
+import FBIcon from 'public/fb_icon.png'
+import TWIcon from 'public/tw_icon.png'
+import ClockIcon from 'public/clock_icon.png'
+import LinkIcon from 'public/link_icon.png'
+import Mostview from '@/components/mostview/Mostview'
+import Relate from '@/components/relate/Relate'
+import { useParams } from 'next/navigation'
 
 export default function Detail() {
-  const [data, setData] = useState([]);
-  const params = useParams();
+  const [data, setData] = useState([])
+  const params = useParams()
 
   useEffect(() => {
     if (params.id) {
-      fetchData();
+      fetchData()
     }
-  }, [params.id]);
+  }, [params.id])
 
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3003/contents/${params.id}`
-      );
-      const data = await response.json();
-      setData(data);
+        `http://localhost:3003/contents/${params.id}`,
+      )
+      const data = await response.json()
+      setData(data)
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error)
     }
-  };
-  
-  const title = data?.title;
+  }
+
+  const title = data?.title
 
   return (
     <div className={styles.container}>
@@ -63,7 +63,7 @@ export default function Detail() {
             alt="Twitter icon"
           />
           <div>
-            <div className={styles.copyLink} direction={"row"}>
+            <div className={styles.copyLink} direction={'row'}>
               <Image
                 className={styles.customIcon1}
                 src={LinkIcon}
@@ -79,7 +79,7 @@ export default function Detail() {
           width={0}
           height={0}
           sizes="100vw"
-          style={{ width: "100%", height: "auto" }}
+          style={{ width: '100%', height: 'auto' }}
         />
         <p className={styles.textD}>{data.body}</p>
         <Relate channel={data.channel} category={data.category} id={data.id} />
@@ -88,5 +88,5 @@ export default function Detail() {
         <Mostview category={data.category} id={data.id} />
       </div>
     </div>
-  );
+  )
 }

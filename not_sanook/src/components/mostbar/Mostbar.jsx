@@ -1,27 +1,27 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import styles from "./mostbar.module.css";
-import Image from "next/image";
+'use client'
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
+import styles from './mostbar.module.css'
+import Image from 'next/image'
 
 export default function Mostbar() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`
-      );
-      const json = await response.json();
-      setData(json);
+        `http://localhost:3003/contents/?_sort=views&_order=desc&_limit=5`,
+      )
+      const json = await response.json()
+      setData(json)
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error)
     }
-  };
+  }
 
   return (
     <div className={styles.container}>
@@ -46,10 +46,10 @@ export default function Mostbar() {
                   height={0}
                   sizes="100vw"
                   style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "10px",
-                    objectFit: "cover",
+                    width: '100%',
+                    height: 'auto',
+                    borderRadius: '10px',
+                    objectFit: 'cover',
                   }}
                   className={styles.image}
                 />
@@ -60,5 +60,5 @@ export default function Mostbar() {
         </div>
       </fieldset>
     </div>
-  );
+  )
 }
