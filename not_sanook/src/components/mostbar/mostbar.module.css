@@ -11,30 +11,26 @@
 
 .box {
   width: 100%;
-  height: 16rem;
   padding: 2rem;
   border: 2px solid #fd0000;
   border-radius: 50px;
 }
 
 .most {
-  position: absolute;
-  top: -1.2rem;
-  width: 16rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
+  padding: 0 0.5em;
+  text-align: center;
   font-size: 2rem;
+  font-weight: 600;
 }
 
 .rowItem {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
   justify-content: space-between;
 }
 
 .columnItem {
-  padding: 0 1rem;
+  padding: 0 0.8rem;
   text-align: center;
   cursor: pointer;
   display: flex;

@@ -55,8 +55,12 @@
   margin: auto;
   left: 0;
   width: 100px;
-  background-color: gray;
+  background-color: transparent;
   opacity: 0.7;
+}
+
+.prevButton:hover {
+  background-color: rgba(0, 0, 0, 0.279);
 }
 
 .nextButton {
@@ -71,6 +75,10 @@
   margin: auto;
   right: 0;
   width: 100px;
-  background-color: gray;
+  background-color: transparent;
   opacity: 0.7;
+}
+
+.nextButton:hover {
+  background-color: rgba(0, 0, 0, 0.279);
 }

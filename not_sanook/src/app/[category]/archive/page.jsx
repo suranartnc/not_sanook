@@ -1,12 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Clock from "../../../../public/clock_icon.png";
+import Clock from "public/clock_icon.png";
 import styles from "./page.module.css";
 import Image from "next/image";
 import Mostview from "@/components/mostview/Mostview";
-import Pagination from "../../../components/pagination/Pagination";
+import Pagination from "@/components/pagination/Pagination";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
-export default function Archive({ params }) {
+export default function Archive() {
   const [currentPage, setCurrentPage] = useState(1);
   const [late, setLate] = useState([]);
   const [views, setViews] = useState([]);
@@ -14,6 +16,7 @@ export default function Archive({ params }) {
   const [selectedFilter, setSelectedFilter] = useState("latest");
   const [selectedFilter1, setSelectedFilter1] = useState("all news");
   const [filteredData, setFilteredData] = useState([]);
+  const params = useParams();
 
   useEffect(() => {
     if (params.category || params.channel) {
@@ -25,7 +28,6 @@ export default function Archive({ params }) {
     try {
       const response = await fetch(
         `http://localhost:3003/contents/?category=${params.category}`
-       
       );
       const data = await response.json();
 
@@ -62,6 +64,8 @@ export default function Archive({ params }) {
       return `${elapsedDays} day${elapsedDays !== 1 ? "s" : ""} ago`;
     }
   };
+
+  const title = `All ${params.category}`;
 
   const pageSize = 4;
 
@@ -125,6 +129,7 @@ export default function Archive({ params }) {
 
   return (
     <div className={styles.container}>
+      <title>{title}</title>
       <div className={styles.boxLeft}>
         <div>เนื้อหาทั้งหมด</div>
         <div className={styles.filter}>
@@ -160,13 +165,19 @@ export default function Archive({ params }) {
                   borderRadius: "10px",
                 }}
               />
-              <div>{item.channel}</div>
-              <div className={styles.latestDetail}>
+              <div className={styles.detail}>
                 <h4>{item.title}</h4>
-                <div className={styles.times}>
-                  <Image alt="News image" src={Clock} width={20} height={20} />
-                  <p>{calculateElapsedTime(item.date)}</p>
-                  <p>{item.views}</p>
+                <div className={styles.bottom}>
+                  <div className={styles.times}>
+                    <Image
+                      alt="News image"
+                      src={Clock}
+                      width={20}
+                      height={20}
+                    />
+                    <p>{calculateElapsedTime(item.date)}</p>
+                  </div>
+                  <p className={styles.view}>{item.views} views</p>
                 </div>
               </div>
             </div>

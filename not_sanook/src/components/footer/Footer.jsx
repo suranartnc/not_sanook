@@ -2,13 +2,13 @@
 import React from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
-import Sanook from "../../../public/sanook.png";
-import FB from "../../../public/facebook.png";
-import TW from "../../../public/twitter.png";
-import IG from "../../../public/instagram.png";
-import YT from "../../../public/youtube.png";
-import IN from "../../../public/linkedin.png";
-import LI from "../../../public/line.png";
+import Sanook from "public/sanook.png";
+import FB from "public/facebook.png";
+import TW from "public/twitter.png";
+import IG from "public/instagram.png";
+import YT from "public/youtube.png";
+import IN from "public/linkedin.png";
+import LI from "public/line.png";
 
 export default async function Footer() {
   return (
