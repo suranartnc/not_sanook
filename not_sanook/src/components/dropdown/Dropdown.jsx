@@ -1,31 +1,30 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import styles from "./dropdown.module.css";
-import Link from "next/link";
+'use client'
+import React, { useState, useEffect } from 'react'
+import styles from './dropdown.module.css'
+import Link from 'next/link'
 
 export default function Dropdowm() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:3003/contents/`);
-      const data = await response.json();
-      setData(getCategoryAndChannel(data));
+      const response = await fetch(`http://localhost:3003/contents/`)
+      const data = await response.json()
+      setData(getCategoryAndChannel(data))
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error)
     }
-  };
+  }
 
   return (
     <div className={styles.navLeft}>
       {data.map((category) => (
-        <div className={styles.dropdown}>
+        <div className={styles.dropdown} key={category.id}>
           <Link
-            key={category.id}
             href={{
               pathname: `/[category]`,
             }}
@@ -50,20 +49,20 @@ export default function Dropdowm() {
         </div>
       ))}
     </div>
-  );
+  )
 }
 
 function getCategoryAndChannel(data) {
-  const usedCategories = [];
-  const modifiedData = [];
+  const usedCategories = []
+  const modifiedData = []
 
   function getChannelURL(category, channel) {
-    return `/${category}/${channel}`;
+    return `/${category}/${channel}`
   }
 
   data.forEach((item, index) => {
-    const category = item.category;
-    const channel = item.channel;
+    const category = item.category
+    const channel = item.channel
 
     if (!usedCategories.includes(category)) {
       modifiedData.push({
@@ -76,27 +75,27 @@ function getCategoryAndChannel(data) {
             url: getChannelURL(category, channel),
           },
         ],
-      });
+      })
 
-      usedCategories.push(category);
-      index++;
+      usedCategories.push(category)
+      index++
     } else {
       const categoryIndex = modifiedData.findIndex(
-        (entry) => entry.category === category
-      );
+        (entry) => entry.category === category,
+      )
       const existingChannel = modifiedData[categoryIndex].channels.find(
-        (ch) => ch.name === channel
-      );
+        (ch) => ch.name === channel,
+      )
 
       if (!existingChannel) {
-        const channelId = modifiedData[categoryIndex].channels.length + 1;
+        const channelId = modifiedData[categoryIndex].channels.length + 1
         modifiedData[categoryIndex].channels.push({
           id: channelId,
           name: channel,
           url: getChannelURL(category, channel),
-        });
+        })
       }
     }
-  });
-  return modifiedData;
+  })
+  return modifiedData
 }

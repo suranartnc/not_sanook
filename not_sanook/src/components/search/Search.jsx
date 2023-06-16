@@ -1,41 +1,41 @@
-"use client";
-import React, { useRef, useState, useCallback } from "react";
-import searchIcon from "public/search_icon.png";
-import styles from "./search.module.css";
-import Link from "next/link";
-import Image from "next/image";
+'use client'
+import React, { useRef, useState, useCallback } from 'react'
+import searchIcon from 'public/search_icon.png'
+import styles from './search.module.css'
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Search() {
-  const [result, setResult] = useState([]);
-  const [query, setQuery] = useState();
-  const [active, setActive] = useState(false);
-  const searchRef = useRef(null);
+  const [result, setResult] = useState([])
+  const [query, setQuery] = useState()
+  const [active, setActive] = useState(false)
+  const searchRef = useRef(null)
 
   const onChange = useCallback((event) => {
-    const query = event.target.value;
-    setQuery(query);
+    const query = event.target.value
+    setQuery(query)
     if (query.length) {
       fetch(`http://localhost:3003/contents/?title_like=${query}&_limit=5`)
         .then((res) => res.json())
         .then((res) => {
-          setResult(res);
-        });
+          setResult(res)
+        })
     } else {
-      setResult([]);
+      setResult([])
     }
-  }, []);
+  }, [])
 
   const onFocus = useCallback(() => {
-    setActive(true);
-    window.addEventListener("click", onClick);
-  }, []);
+    setActive(true)
+    window.addEventListener('click', onClick)
+  }, [])
 
   const onClick = useCallback((event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setActive(false);
-      window.removeEventListener("click", onClick);
+      setActive(false)
+      window.removeEventListener('click', onClick)
     }
-  }, []);
+  }, [])
 
   return (
     <div className={styles.dropdown}>
@@ -70,5 +70,5 @@ export default function Search() {
         alt="Search icon"
       />
     </div>
-  );
+  )
 }

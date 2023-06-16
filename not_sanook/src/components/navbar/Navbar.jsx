@@ -1,19 +1,19 @@
-import Link from "next/link";
-import React from "react";
-import styles from "./navbar.module.css";
-import Search from "@/components/search/Search";
-import Dropdown from "@/components/dropdown/Dropdown";
-import Darkmode from "@/components/darkmode/Darkmode";
-import Image from "next/image";
-import Sanook from "public/sanook.png";
-import Lotto from "public/Lotto.png";
-import Joox from "public/Joox.png";
-import WeTV from "public/WeTV.png";
-import WeComics from "public/WeComics.png";
-import Pubg from "public/Pubg.png";
+import Link from 'next/link'
+import React from 'react'
+import styles from './navbar.module.css'
+import Search from '@/components/search/Search'
+import Dropdown from '@/components/dropdown/Dropdown'
+import Darkmode from '@/components/darkmode/Darkmode'
+import Image from 'next/image'
+import Sanook from 'public/sanook.png'
+import Lotto from 'public/Lotto.png'
+import Joox from 'public/Joox.png'
+import WeTV from 'public/WeTV.png'
+import WeComics from 'public/WeComics.png'
+import Pubg from 'public/Pubg.png'
 
 export default function Navbar() {
-  const currentDate = new Date().toLocaleDateString();
+  const currentDate = new Date().toLocaleDateString()
 
   return (
     <div className={styles.container}>
@@ -24,7 +24,7 @@ export default function Navbar() {
               pathname: `/`,
             }}
             as={`/`}
-            key={"sanook"}
+            key={'sanook'}
           >
             <Image src={Sanook} className={styles.logo} alt="Sanook icon" />
           </Link>
@@ -69,5 +69,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  );
+  )
 }

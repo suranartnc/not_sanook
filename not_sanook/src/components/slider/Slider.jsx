@@ -1,43 +1,39 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import styles from "./slider.module.css";
-import Link from "next/link";
-import Image from "next/image";
+'use client'
+import React, { useState, useEffect } from 'react'
+import styles from './slider.module.css'
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Slider() {
-  const [data, setData] = useState([]);
-  const [num, setNum] = useState(0);
-  
+  const [data, setData] = useState([])
+  const [num, setNum] = useState(0)
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:3003/contents/?category=review&_limit=3`);
-      const json = await response.json();
-      setData(json);
+      const response = await fetch(
+        `http://localhost:3003/contents/?category=review&_limit=3`,
+      )
+      const json = await response.json()
+      setData(json)
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error)
     }
-  };
-  
+  }
+
   const handlePrevSlide = () => {
-     setNum( (prevSlide) =>
-      prevSlide === 0 ? data.length - 1 : prevSlide - 1
-    );
-  };
-  
+    setNum((prevSlide) => (prevSlide === 0 ? data.length - 1 : prevSlide - 1))
+  }
+
   const handleNextSlide = () => {
-    setNum((prevSlide) =>
-      prevSlide === data.length - 1 ? 0 : prevSlide + 1
-    );
-  };
+    setNum((prevSlide) => (prevSlide === data.length - 1 ? 0 : prevSlide + 1))
+  }
 
   return (
-    <div 
-    className={styles.slider}
-    >
+    <div className={styles.slider}>
       <button className={styles.prevButton} onClick={handlePrevSlide}>
         <Image src="/nl.png" width={55} height={55} alt="Arrow left icon" />
       </button>
@@ -55,7 +51,7 @@ export default function Slider() {
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+            style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
             alt="image"
           />
           <p className={styles.slideText}>{data[num]?.title}</p>
@@ -65,7 +61,5 @@ export default function Slider() {
         <Image src="/nr.png" width={55} height={55} alt="Arrow right icon" />
       </button>
     </div>
-  );
-};
-
-
+  )
+}

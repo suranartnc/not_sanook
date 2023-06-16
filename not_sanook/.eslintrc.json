@@ -12,6 +12,7 @@
   },
   "rules": {
     "@next/next/no-img-element": "off",
+    "react/prop-types": "off",
     "prettier/prettier": [
       "error",
       {
@@ -21,8 +22,17 @@
         "singleQuote": true,
         "semi": false,
         "trailingComma": "all",
-        "jsxBracketSameLine": false
+        "jsxBracketSameLine": false,
+        "endOfLine": "auto"
       }
     ]
+  },
+  "globals": {
+    "fetch": false
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
   }
 }
