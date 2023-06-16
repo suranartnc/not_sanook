@@ -34,11 +34,12 @@ export default function Category() {
       const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
       const firstNews = random[0];
       const otherNews = random.slice(1, 5);
-
+      console.log(latest)
       setLate(latest);
       setFirst(firstNews);
       setOther(otherNews);
       setChannel(getChannel(data));
+
     } catch (error) {
       console.error("Error fetching data:", error);
     }
