@@ -8,37 +8,32 @@ import Pagination from '@/components/pagination/Pagination'
 import { useParams } from 'next/navigation'
 
 export default function Archive() {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [late, setLate] = useState([])
-  const [views, setViews] = useState([])
-  const [channel, setChannel] = useState([])
-  const [selectedFilter, setSelectedFilter] = useState('latest')
-  const [selectedFilter1, setSelectedFilter1] = useState('all news')
-  const [filteredData, setFilteredData] = useState([])
-  const params = useParams()
+  const params = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [channel, setChannel] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState("date");
+  const [selectedFilter1, setSelectedFilter1] = useState("all news");
+  const [filteredData, setFilteredData] = useState([]);
+  const category = params.category;
 
-  useEffect(() => {
-    if (params.category || params.channel) {
-      fetchData()
-    }
-  }, [params.category, params.channel])
-
-  const fetchData = async () => {
+  const fetchData = async (filter, filter1) => {
     try {
-      const response = await fetch(
-        `http://localhost:3003/contents/?category=${params.category}`,
-      )
-      const data = await response.json()
+      let url = `http://localhost:3003/contents/?category=${category}&_order=desc`;
 
-      const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date))
-      const viewed = data.sort((a, b) => b.views - a.views)
-      console.log(latest, viewed)
-      setLate(latest)
-      setViews(viewed)
-      setChannel(getChannel(data))
+      if (filter !== "all news") {
+        url += `&channel=${filter}`;
+      }
+      if (filter1) url += `&_sort=${filter1}`;
 
-      const sortedData = filterData(selectedFilter, selectedFilter1)
-      setFilteredData(sortedData)
+      const response = await fetch(url);
+      const data = await response.json();
+      const response1 = await fetch(
+        `http://localhost:3003/contents/?category=${category}`
+      );
+      const data1 = await response1.json();
+
+      setChannel(getChannel(data1));
+      setFilteredData(data);
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -64,92 +59,83 @@ export default function Archive() {
     }
   }
 
-  const title = `All ${params.category}`
+  const title = `All ${category}`;
 
   const pageSize = 4
 
-  const filterData = (filter, filter1) => {
-    let sortedData = []
-    if (filter === 'latest') {
-      sortedData = paginate(late, currentPage, pageSize)
-    } else if (filter === 'mostViewed') {
-      sortedData = views
-    }
-
-    if (filter1 !== 'all news') {
-      sortedData = sortedData.filter((item) => item.channel === filter1)
-    }
-
-    return sortedData
-  }
-
-  const paginate = (items, pageNumber, pageSize) => {
-    const startIndex = (pageNumber - 1) * pageSize
-    return items.slice(startIndex, startIndex + pageSize)
-  }
-
   const handleFilterChange = (event) => {
-    const filter = event.target.value
-    setSelectedFilter(filter)
-
-    const sortedData = filterData(filter, selectedFilter1)
-    setFilteredData(sortedData)
-  }
+    const filter = event.target.value;
+    setSelectedFilter(filter);
+  };
 
   const renderChannels = () => {
     return channel.map((channel) => (
       <option key={channel.id} value={channel.channel}>
         {channel.channel}
       </option>
-    ))
-  }
+    ));
+  };
 
   const handleFilterChange1 = (event) => {
-    const filter1 = event.target.value
-    setSelectedFilter1(filter1)
-
-    const sortedData = filterData(selectedFilter, filter1)
-    setFilteredData(sortedData)
-  }
-
-  // const handleClick = () => {
-  //   const filteredData = filterData(selectedFilter, selectedFilter1);
-  //   setFilteredData(filteredData);
-  // };
+    const filter1 = event.target.value;
+    setSelectedFilter1(filter1);
+  };
 
   const onPageChange = (page) => {
     setCurrentPage(page)
   }
 
   useEffect(() => {
-    const paginatedData = filterData(selectedFilter, selectedFilter1)
-    setFilteredData(paginatedData)
-    setCurrentPage(1)
-  }, [selectedFilter, selectedFilter1])
+    fetchData(selectedFilter1, selectedFilter);
+  });
+
+  const paginate = (items, pageNumber, pageSize) => {
+    const startIndex = (pageNumber - 1) * pageSize;
+    return items.slice(startIndex, startIndex + pageSize);
+  };
+
+  const paginatedPosts = paginate(filteredData, currentPage, pageSize);
 
   return (
     <div className={styles.container}>
       <title>{title}</title>
       <div className={styles.boxLeft}>
-        <div>เนื้อหาทั้งหมด</div>
+        <div className={styles.all}>เนื้อหาทั้งหมด</div>
         <div className={styles.filter}>
-          <div className={styles.dropdown}>
-            <select value={selectedFilter1} onChange={handleFilterChange1}>
-              <option value="all news">All News</option>
-              {renderChannels()}
-            </select>
-          </div>
-          <div className={styles.dropdown}>
-            <select value={selectedFilter} onChange={handleFilterChange}>
-              <option value="latest">ใหม่ล่าสุด</option>
-              <option value="mostViewed">ผู้ชม สูงสุดทั้งหมด</option>
-            </select>
-          </div>
+
+          <select
+            value={selectedFilter1}
+            onChange={handleFilterChange1}
+            className={`${styles.select} ${styles.customSelect}`}
+          >
+            <option value="all news">All News</option>
+            {channel.map((channel) => (
+              <option key={channel.id} value={channel.channel}>
+                {channel.channel}
+              </option>
+            ))}
+          </select>
+          <select
+            value={selectedFilter}
+            onChange={handleFilterChange}
+            className={`${styles.select} ${styles.customSelect} ${styles.secondSelect}`}
+          >
+            <option value="date">ใหม่ล่าสุด</option>
+            <option value="views">ผู้ชม สูงสุดทั้งหมด</option>
+          </select>
+
         </div>
 
         <div className={styles.latest}>
-          {filteredData.map((item) => (
-            <div key={item.id} className={styles.latestCard}>
+          {paginatedPosts.map((item) => (
+            <Link
+              className={styles.latestCard}
+              key={item.id}
+              href={{
+                pathname: `/blog/[id]`,
+              }}
+              as={`/blog/${item.id}`}
+            >
               <Image
                 alt="Latest News image"
                 src={item.image}
@@ -174,10 +160,12 @@ export default function Archive() {
                     />
                     <p>{calculateElapsedTime(item.date)}</p>
                   </div>
-                  <p className={styles.view}>{item.views} views</p>
+                  <div className={styles.view}>
+                    <p>{item.views} views</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
           <Pagination
             items={filteredData.length}
@@ -188,7 +176,7 @@ export default function Archive() {
         </div>
       </div>
       <div className={styles.boxRight}>
-        <Mostview category={params.category} />
+        <Mostview category={category} />
       </div>
     </div>
   )
