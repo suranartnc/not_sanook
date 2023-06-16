@@ -33,10 +33,13 @@ export default function Archive() {
 
       const latest = data.sort((a, b) => new Date(b.date) - new Date(a.date));
       const viewed = data.sort((a, b) => b.views - a.views);
-
+      console.log(latest,viewed)
       setLate(latest);
       setViews(viewed);
       setChannel(getChannel(data));
+      
+      const sortedData = filterData(selectedFilter, selectedFilter1);
+      setFilteredData(sortedData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -50,6 +53,7 @@ export default function Archive() {
     const elapsedMinutes = Math.floor(elapsedSeconds / 60);
     const elapsedHours = Math.floor(elapsedMinutes / 60);
     const elapsedDays = Math.floor(elapsedHours / 24);
+
     if (elapsedSeconds < 60) {
       return `${elapsedSeconds} second${elapsedSeconds !== 1 ? "s" : ""} ago`;
     } else if (elapsedMinutes < 60) {
@@ -68,7 +72,7 @@ export default function Archive() {
   const filterData = (filter, filter1) => {
     let sortedData = [];
     if (filter === "latest") {
-      sortedData = late;
+      sortedData = paginate(late, currentPage, pageSize);
     } else if (filter === "mostViewed") {
       sortedData = views;
     }
@@ -80,12 +84,18 @@ export default function Archive() {
     return sortedData;
   };
 
+  const paginate = (items, pageNumber, pageSize) => {
+    const startIndex = (pageNumber - 1) * pageSize;
+    return items.slice(startIndex, startIndex + pageSize);
+  };
+
   const handleFilterChange = (event) => {
     const filter = event.target.value;
     setSelectedFilter(filter);
   
     const sortedData = filterData(filter, selectedFilter1);
     setFilteredData(sortedData);
+    
   };
 
   const renderChannels = () => {
@@ -134,6 +144,7 @@ export default function Archive() {
             <select value={selectedFilter} onChange={handleFilterChange}>
               <option value="latest">ใหม่ล่าสุด</option>
               <option value="mostViewed">ผู้ชม สูงสุดทั้งหมด</option>
+              
             </select>
           </div>
           
