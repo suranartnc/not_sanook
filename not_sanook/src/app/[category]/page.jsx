@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Mostview from "@/components/mostview/Mostview";
 import Pagination from "@/components/pagination/Pagination";
 import styles from "./page.module.css";
-import Clock from "../../../public/clock_icon.png";
+import Clock from "public/clock_icon.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -78,8 +78,11 @@ export default function Category() {
 
   const paginatedPosts = paginate(late, currentPage, pageSize);
 
+  const title = category.toUpperCase();
+
   return (
     <div>
+      <title>{title}</title>
       <div className={styles.container}>
         <div className={styles.boxLeft}>
           <div className={styles.category}>

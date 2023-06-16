@@ -2,11 +2,11 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
-import arrow from "../../public/right_arrow_icon.png";
-import Slider from "../components/slider/Slider";
-import Mostbar from "../components/mostbar/Mostbar";
-import Scoop from "../components/scoop/Scoop";
-import Review from "../components/review/Review";
+import arrow from "public/right_arrow_icon.png";
+import Slider from "@/components/slider/Slider";
+import Mostbar from "@/components/mostbar/Mostbar";
+import Scoop from "@/components/scoop/Scoop";
+import Review from "@/components/review/Review";
 
 export default async function Home() {
   // const data = await getData(params);

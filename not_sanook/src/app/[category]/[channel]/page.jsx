@@ -3,16 +3,17 @@ import React, { useState, useEffect } from "react";
 import Mostview from "@/components/mostview/Mostview";
 import Pagination from "@/components/pagination/Pagination";
 import styles from "./page.module.css";
-import Clock from "../../../../public/clock_icon.png";
+import Clock from "public/clock_icon.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
-export default function Channel({ params }) {
+export default function Channel() {
   const [first, setFirst] = useState([]);
   const [other, setOther] = useState([]);
   const [late, setLate] = useState([]);
-  const [channel, setChannel] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const params = useParams();
 
   useEffect(() => {
     if (params.category || params.channel) {
@@ -35,7 +36,6 @@ export default function Channel({ params }) {
       setLate(latest);
       setFirst(firstNews);
       setOther(otherNews);
-      setChannel(getChannel(data));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -73,10 +73,13 @@ export default function Channel({ params }) {
   };
 
   const paginatedPosts = paginate(late, currentPage, pageSize);
+  
+  const title = params.channel.toUpperCase();
 
   return (
-    <div>
+      
       <div className={styles.container}>
+      <title>{title}</title>
         <div className={styles.boxLeft}>
           <div className={styles.channel}>
             <h3 className={styles.textCategory}>{params.channel}</h3>
@@ -191,6 +194,5 @@ export default function Channel({ params }) {
           <Mostview category={params.category} channel={params.channel} />
         </div>
       </div>
-    </div>
   );
 }

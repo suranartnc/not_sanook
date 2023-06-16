@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./relate.module.css";
-import RightArrow from "../../../public/right_arrow_icon.png";
+import RightArrow from "public/right.png";
 import Link from "next/link";
 
 export default function Relate({ channel, category, id }) {
