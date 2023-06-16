@@ -14,6 +14,7 @@ export default function Archive() {
   const [views, setViews] = useState([]);
   const [channel, setChannel] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("latest");
+  const [selectedFilter1, setSelectedFilter1] = useState("all news");
   const [filteredData, setFilteredData] = useState([]);
   const params = useParams();
 
@@ -60,75 +61,87 @@ export default function Archive() {
     }
   };
 
-  // const filterData = (filter) => {
-  //   let sortedData = [];
-  //   if (filter === "latest") {
-  //     sortedData = late;
-  //   } else if (filter === "mostViewed") {
-  //     sortedData = views;
-  //   }
-
-  //   setFilteredData(paginatedPosts);
-  //   return paginatedPosts;
-  // };
-
-  // const handleFilterChange = (event) => {
-  //   const filter = event.target.value;
-  //   setSelectedFilter(filter);
-  //   if (filter === "latest") {
-  //     const filteredItems = data.sort(
-  //       (a, b) => new Date(b.date) - new Date(a.date)
-  //     );
-  //     setFilteredData(filteredItems);
-  //   } else if (filter === "mostViewed") {
-  //     const filteredItems = data.sort((a, b) => b.views - a.views);
-  //     setFilteredData(filteredItems);
-  //   }
-  // };
-  // const handleClick = () => {
-  //   filterData(selectedFilter);
-  // };
+  const title = `All ${params.category}`;
 
   const pageSize = 4;
 
+  const filterData = (filter, filter1) => {
+    let sortedData = [];
+    if (filter === "latest") {
+      sortedData = late;
+    } else if (filter === "mostViewed") {
+      sortedData = views;
+    }
+
+    if (filter1 !== "all news") {
+      sortedData = sortedData.filter((item) => item.channel === filter1);
+    }
+
+    return sortedData;
+  };
+
+  const handleFilterChange = (event) => {
+    const filter = event.target.value;
+    setSelectedFilter(filter);
+  
+    const sortedData = filterData(filter, selectedFilter1);
+    setFilteredData(sortedData);
+  };
+
+  const renderChannels = () => {
+    return channel.map((channel) => (
+      <option key={channel.id} value={channel.channel}>{channel.channel}</option>
+    ));
+  };
+
+  const handleFilterChange1 = (event) => {
+    const filter1 = event.target.value;
+    setSelectedFilter1(filter1);
+  
+    const sortedData = filterData(selectedFilter, filter1);
+    setFilteredData(sortedData);
+  };
+
+  // const handleClick = () => {
+  //   const filteredData = filterData(selectedFilter, selectedFilter1);
+  //   setFilteredData(filteredData);
+  // };
+
   const onPageChange = (page) => {
     setCurrentPage(page);
-    // window.alert(page);
   };
 
-  const paginate = (items, pageNumber, pageSize) => {
-    const startIndex = (pageNumber - 1) * pageSize;
-    return items.slice(startIndex, startIndex + pageSize);
-  };
+  useEffect(() => {
+    const paginatedData = filterData(selectedFilter, selectedFilter1);
+    setFilteredData(paginatedData);
+    setCurrentPage(1);
+  }, [selectedFilter, selectedFilter1]);
 
-  const paginatedPosts = paginate(late, currentPage, pageSize);
-
-  const title = `All ${params.category}`;
   return (
     <div className={styles.container}>
       <title>{title}</title>
       <div className={styles.boxLeft}>
         <div>เนื้อหาทั้งหมด</div>
         <div className={styles.filter}>
+          
           <div className={styles.dropdown}>
-            <h4 className={styles.category}>{params.category}</h4>
-            <div className={styles.contents}>
-              {channel.map((channel) => (
-                <h4 className={styles.channel}>{channel.channel}</h4>
-              ))}
-            </div>
-          </div>
-          <div className={styles.dropdown}>
-            <select value={selectedFilter}>
-              <option value="latest">Latest</option>
-              <option value="mostViewed">Most Viewed</option>
+            <select value={selectedFilter1} onChange={handleFilterChange1}>
+              <option value="all news">All News</option>
+              {renderChannels()}
             </select>
-            <button>Sort</button>
           </div>
+          <div className={styles.dropdown}>
+            <select value={selectedFilter} onChange={handleFilterChange}>
+              <option value="latest">ใหม่ล่าสุด</option>
+              <option value="mostViewed">ผู้ชม สูงสุดทั้งหมด</option>
+            </select>
+          </div>
+          
         </div>
-        <div className={styles.info}>
-          {paginatedPosts.map((item) => (
-            <div key={item.id} className={styles.infoCard}>
+
+        <div className={styles.latest}>
+          {filteredData.map((item) => (
+            <div key={item.id} className={styles.latestCard}>
               <Image
                 alt="Latest News image"
                 src={item.image}
@@ -159,9 +172,9 @@ export default function Archive() {
             </div>
           ))}
           <Pagination
-            items={late.length} // 100
-            currentPage={currentPage} // 1
-            pageSize={pageSize} // 10
+            items={filteredData.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
             onPageChange={onPageChange}
           />
         </div>
