@@ -1,29 +1,30 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import styles from "./mostview.module.css";
-import Link from "next/link";
+'use client'
+import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
+import styles from './mostview.module.css'
+import Link from 'next/link'
 
-export default  function Mostview({ category, channel, id }) {
-  const [data, setData] = useState([]);
+export default function Mostview({ category, channel, id }) {
+  const [data, setData] = useState([])
 
   useEffect(() => {
     if (category || channel || id) {
-      fetchData();
+      fetchData()
     }
-  }, [category, channel, id]);
+  }, [category, channel, id])
 
   const fetchData = async () => {
-    let url = "http://localhost:3003/contents/?_limit=3&?_sort=views&_order=desc&";
-    if (category) url += `category=${category}&`;
-    if (channel) url += `channel=${channel}&`;
-    if (id) url += `id_ne=${id}`;
+    let url =
+      'http://localhost:3003/contents/?_limit=3&?_sort=views&_order=desc&'
+    if (category) url += `category=${category}&`
+    if (channel) url += `channel=${channel}&`
+    if (id) url += `id_ne=${id}`
 
-    const response = await fetch(url);
-    const data = await response.json();
+    const response = await fetch(url)
+    const data = await response.json()
 
-    setData(data);
-  };
+    setData(data)
+  }
 
   return (
     <div className={styles.mostview}>
@@ -44,10 +45,10 @@ export default  function Mostview({ category, channel, id }) {
               height={0}
               sizes="100vw"
               style={{
-                width: "100%",
-                height: "auto",
-                borderTopLeftRadius: "10px",
-                borderTopRightRadius: "10px",
+                width: '100%',
+                height: 'auto',
+                borderTopLeftRadius: '10px',
+                borderTopRightRadius: '10px',
               }}
               alt="Most Viewed News image"
             />
@@ -59,5 +60,5 @@ export default  function Mostview({ category, channel, id }) {
         </Link>
       ))}
     </div>
-  );
+  )
 }

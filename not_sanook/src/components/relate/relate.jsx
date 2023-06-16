@@ -1,55 +1,55 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Image from "next/image";
-import styles from "./relate.module.css";
-import RightArrow from "public/right.png";
-import Clock from "public/clock_icon.png";
-import Link from "next/link";
+'use client'
+import React, { useState, useEffect } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Image from 'next/image'
+import styles from './relate.module.css'
+import RightArrow from 'public/right.png'
+import Clock from 'public/clock_icon.png'
+import Link from 'next/link'
 
 export default function Relate({ channel, category, id }) {
-  const [data, setData] = useState([]);
-  const [posts, setPosts] = useState(data);
-  const [hasMore] = useState(true);
+  const [data, setData] = useState([])
+  const [posts, setPosts] = useState(data)
+  const [hasMore] = useState(true)
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
-  let url = `http://localhost:3003/contents/?category=${category}&channel=${channel}&id_ne=${id}`;
+  let url = `http://localhost:3003/contents/?category=${category}&channel=${channel}&id_ne=${id}`
 
   const fetchData = async () => {
-    const response = await fetch(url);
-    const data = await response.json();
-    setData(data);
-  };
+    const response = await fetch(url)
+    const data = await response.json()
+    setData(data)
+  }
 
   const getMorePost = async () => {
-    url += `&_sort=date&_order=desc&_start=${posts.length}&_limit=2`;
-    const res = await fetch(url);
-    const newPosts = await res.json();
-    setPosts((post) => [...post, ...newPosts]);
-  };
+    url += `&_sort=date&_order=desc&_start=${posts.length}&_limit=2`
+    const res = await fetch(url)
+    const newPosts = await res.json()
+    setPosts((post) => [...post, ...newPosts])
+  }
 
   const calculateElapsedTime = (time) => {
-    const currentDateTime = new Date();
-    const newsDate = new Date(time);
-    const elapsedMilliseconds = currentDateTime - newsDate;
-    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
-    const elapsedHours = Math.floor(elapsedMinutes / 60);
-    const elapsedDays = Math.floor(elapsedHours / 24);
+    const currentDateTime = new Date()
+    const newsDate = new Date(time)
+    const elapsedMilliseconds = currentDateTime - newsDate
+    const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000)
+    const elapsedMinutes = Math.floor(elapsedSeconds / 60)
+    const elapsedHours = Math.floor(elapsedMinutes / 60)
+    const elapsedDays = Math.floor(elapsedHours / 24)
 
     if (elapsedSeconds < 60) {
-      return `${elapsedSeconds} second${elapsedSeconds !== 1 ? "s" : ""} ago`;
+      return `${elapsedSeconds} second${elapsedSeconds !== 1 ? 's' : ''} ago`
     } else if (elapsedMinutes < 60) {
-      return `${elapsedMinutes} minute${elapsedMinutes !== 1 ? "s" : ""} ago`;
+      return `${elapsedMinutes} minute${elapsedMinutes !== 1 ? 's' : ''} ago`
     } else if (elapsedHours < 24) {
-      return `${elapsedHours} hour${elapsedHours !== 1 ? "s" : ""} ago`;
+      return `${elapsedHours} hour${elapsedHours !== 1 ? 's' : ''} ago`
     } else {
-      return `${elapsedDays} day${elapsedDays !== 1 ? "s" : ""} ago`;
+      return `${elapsedDays} day${elapsedDays !== 1 ? 's' : ''} ago`
     }
-  };
+  }
 
   return (
     <div>
@@ -85,7 +85,7 @@ export default function Relate({ channel, category, id }) {
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: "25vw", height: "auto", borderRadius: "10px" }}
+                style={{ width: '25vw', height: 'auto', borderRadius: '10px' }}
                 alt="Related News image"
               />
               <div className={styles.relateDetail}>
@@ -100,5 +100,5 @@ export default function Relate({ channel, category, id }) {
         </InfiniteScroll>
       </div>
     </div>
-  );
+  )
 }

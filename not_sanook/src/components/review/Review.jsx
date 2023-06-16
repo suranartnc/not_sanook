@@ -1,36 +1,36 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import styles from "./review.module.css";
-import Image from "next/image";
+'use client'
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
+import styles from './review.module.css'
+import Image from 'next/image'
 
 export default function Review() {
-  const [category, setCategory] = useState([]);
-  const [first, setFirst] = useState([]);
-  const [second, setSecond] = useState([]);
+  const [category, setCategory] = useState([])
+  const [first, setFirst] = useState([])
+  const [second, setSecond] = useState([])
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3003/contents/?category=review&_limit=5`
-      );
-      const json = await response.json();
+        `http://localhost:3003/contents/?category=review&_limit=5`,
+      )
+      const json = await response.json()
 
-      const firstCategory = json[0].category;
-      const firstColumn = json.slice(0, 1);
-      const secondColumn = json.slice(1, 5);
+      const firstCategory = json[0].category
+      const firstColumn = json.slice(0, 1)
+      const secondColumn = json.slice(1, 5)
 
-      setCategory(firstCategory);
-      setFirst(firstColumn);
-      setSecond(secondColumn);
+      setCategory(firstCategory)
+      setFirst(firstColumn)
+      setSecond(secondColumn)
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error)
     }
-  };
+  }
 
   return (
     <div className={styles.container}>
@@ -62,7 +62,7 @@ export default function Review() {
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+                style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
                 alt="News image"
               />
               <h3 className={styles.topText}>{item.title}</h3>
@@ -86,7 +86,7 @@ export default function Review() {
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+                style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
               />
               <h3 className={styles.moreText}>{item.title}</h3>
             </Link>
@@ -94,5 +94,5 @@ export default function Review() {
         </div>
       </div>
     </div>
-  );
+  )
 }
