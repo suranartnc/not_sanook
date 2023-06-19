@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import styles from './mostview.module.css'
 import Link from 'next/link'
@@ -11,20 +11,24 @@ export default function Mostview({ category, channel, id }) {
     if (category || channel || id) {
       fetchData()
     }
+  }, [category, channel, fetchData, id])
+
+  const fetchData = useCallback(async () => {
+    try {
+      let url =
+        'http://localhost:3003/contents/?_limit=3&?_sort=views&_order=desc&'
+      if (category) url += `category=${category}&`
+      if (channel) url += `channel=${channel}&`
+      if (id) url += `id_ne=${id}`
+
+      const response = await fetch(url)
+      const data = await response.json()
+
+      setData(data)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
   }, [category, channel, id])
-
-  const fetchData = async () => {
-    let url =
-      'http://localhost:3003/contents/?_limit=3&?_sort=views&_order=desc&'
-    if (category) url += `category=${category}&`
-    if (channel) url += `channel=${channel}&`
-    if (id) url += `id_ne=${id}`
-
-    const response = await fetch(url)
-    const data = await response.json()
-
-    setData(data)
-  }
 
   return (
     <div className={styles.mostview}>

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import styles from './page.module.css'
 import LineIcon from 'public/line_icon.png'
@@ -19,9 +19,9 @@ export default function Detail() {
     if (params.id) {
       fetchData()
     }
-  }, [params.id])
+  }, [fetchData, params.id])
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await fetch(
         `http://localhost:3003/contents/${params.id}`,
@@ -31,7 +31,7 @@ export default function Detail() {
     } catch (error) {
       console.error('Error fetching data:', error)
     }
-  }
+  }, [params.id])
 
   const title = data?.title
 

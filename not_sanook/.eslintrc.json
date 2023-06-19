@@ -3,7 +3,7 @@
     "sourceType": "module",
     "ecmaVersion": 2020
   },
-  "extends": ["eslint:recommended", "prettier", "plugin:react/recommended"],
+  "extends": ["eslint:recommended", "prettier", "plugin:react/recommended", "next"],
   "plugins": ["prettier"],
   "settings": {
     "react": {
