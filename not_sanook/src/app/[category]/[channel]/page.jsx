@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useCallback } from 'react'
-import Mostview from '@/components/mostview/Mostview'
+import Mostview from '@/components/mostview/mostview'
 import Pagination from '@/components/pagination/Pagination'
 import styles from './page.module.css'
 import Clock from 'public/clock_icon.png'

@@ -7,8 +7,8 @@ import FBIcon from 'public/fb_icon.png'
 import TWIcon from 'public/tw_icon.png'
 import ClockIcon from 'public/clock_icon.png'
 import LinkIcon from 'public/link_icon.png'
-import Mostview from '@/components/mostview/Mostview'
-import Relate from '@/components/relate/Relate'
+import Mostview from '@/components/mostview/mostview'
+import Relate from '@/components/relate/relate'
 import { useParams } from 'next/navigation'
 
 export default function Detail() {
