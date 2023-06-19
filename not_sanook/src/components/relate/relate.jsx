@@ -1,28 +1,30 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Image from 'next/image'
 import styles from './relate.module.css'
 import RightArrow from 'public/right.png'
 import Clock from 'public/clock_icon.png'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
-export default function Relate({ channel, category, id }) {
+export default function Relate() {
   const [data, setData] = useState([])
   const [posts, setPosts] = useState(data)
   const [hasMore] = useState(true)
+  const params = useParams()
+  const { category, channel, id } = params
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [fetchData])
 
   let url = `http://localhost:3003/contents/?category=${category}&channel=${channel}&id_ne=${id}`
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const response = await fetch(url)
     const data = await response.json()
     setData(data)
-  }
+  }, [url])
 
   const getMorePost = async () => {
     url += `&_sort=date&_order=desc&_start=${posts.length}&_limit=2`
